@@ -1,0 +1,9 @@
+{% if visitantes_list %}
+    <ul>
+    {% for visitante in visitantes_list %}
+        <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.transporte }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No visitantes are available.</p>
+{% endif %}
