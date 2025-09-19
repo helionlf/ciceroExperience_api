@@ -1,23 +1,30 @@
-{% if visitantes_list %}
-    <ul>
-    {% for visitante in visitantes_list %}
-        <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.transporte }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No visitantes are available.</p>
-{% endif %}
+{% extends "cicero_experience/base.html" %}
 
-<form action="{% url 'index'%}" method="post">
-{% csrf_token %}
-<fieldset>
-    <legend><h1>Formulário</h1></legend>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        <input type="text" name="pais" id="pais" value="">
-        <input type="text" name="estado" id="estado" value="">
-        <input type="text" name="cidade" id="cidade" value="">
-        <input type="text" name="transporte" id="transport" value="">
-        <input type="number" name="idade" id="idade" value="">
-</fieldset>
-<input type="submit">
-</form>
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    {% if visitantes_list %}
+        <ul>
+        {% for visitante in visitantes_list %}
+            <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.transporte }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No visitantes are available.</p>
+    {% endif %}
+
+    <form action="{% url 'index'%}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Formulário</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <input type="text" name="pais" id="pais" value="">
+            <input type="text" name="estado" id="estado" value="">
+            <input type="text" name="cidade" id="cidade" value="">
+            <input type="text" name="transporte" id="transport" value="">
+            <input type="number" name="idade" id="idade" value="">
+    </fieldset>
+    <button type="submit">Enviar</button>
+    </form>
+{% endblock %}
