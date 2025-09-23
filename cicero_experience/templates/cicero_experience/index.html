@@ -24,7 +24,26 @@
             <input type="text" name="cidade" id="cidade" value="">
             <input type="text" name="transporte" id="transport" value="">
             <input type="number" name="idade" id="idade" value="">
+
+            <input type="hidden" name="fingerprint" id="fingerprint">
     </fieldset>
     <button type="submit">Enviar</button>
     </form>
+
+    <script>
+        async function makeFingerprint() {
+        const ua = navigator.userAgent;
+        const screenInfo = [screen.width, screen.height, screen.colorDepth].join('x');
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const raw = [ua, screenInfo, tz].join('||');
+        const enc = new TextEncoder().encode(raw);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
+        return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
+        }
+
+        (async () => {
+        const fp = await makeFingerprint();
+        document.getElementById("fingerprint").value = fp;
+        })();
+    </script>
 {% endblock %}
