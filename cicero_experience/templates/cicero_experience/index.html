@@ -7,7 +7,7 @@
     {% if visitantes_list %}
         <ul>
         {% for visitante in visitantes_list %}
-            <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.transporte }}</a></li>
+            <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.faixa_etaria }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
@@ -22,8 +22,34 @@
             <input type="text" name="pais" id="pais" value="">
             <input type="text" name="estado" id="estado" value="">
             <input type="text" name="cidade" id="cidade" value="">
-            <input type="text" name="transporte" id="transport" value="">
-            <input type="number" name="idade" id="idade" value="">
+
+            <label for="faixa_etaria">Faixa Etária:</label>
+            <select name="faixa_etaria" id="faixa_etaria">
+                {% for value, label in faixas_etarias_choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="grupo">Grupo:</label>
+            <select name="grupo" id="grupo">
+                {% for value, label in grupo_ %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="genero">Genero:</label>
+            <select name="genero" id="genero">
+                {% for value, label in generos %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cor_raca">Cor/Raça:</label>
+            <select name="cor_raca" id="cor_raca">
+                {% for value, label in cor_racas %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
 
             <input type="hidden" name="fingerprint" id="fingerprint">
     </fieldset>
@@ -31,19 +57,19 @@
     </form>
 
     <script>
-        async function makeFingerprint() {
-        const ua = navigator.userAgent;
-        const screenInfo = [screen.width, screen.height, screen.colorDepth].join('x');
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const raw = [ua, screenInfo, tz].join('||');
-        const enc = new TextEncoder().encode(raw);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
-        return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
+            async function makeFingerprint() {
+            const ua = navigator.userAgent;
+            const screenInfo = [screen.width, screen.height, screen.colorDepth].join('x');
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            const raw = [ua, screenInfo, tz].join('||');
+            const enc = new TextEncoder().encode(raw);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
+            return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
         }
 
         (async () => {
-        const fp = await makeFingerprint();
-        document.getElementById("fingerprint").value = fp;
+            const fp = await makeFingerprint();
+            document.getElementById("fingerprint").value = fp;
         })();
     </script>
 {% endblock %}
