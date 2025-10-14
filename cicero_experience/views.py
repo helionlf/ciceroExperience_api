@@ -4,6 +4,8 @@ from django.db import DatabaseError
 
 from .models import Visitantes
 
+from django.conf import settings
+
 
 def index(request):
     error_message = None
@@ -52,5 +54,6 @@ def index(request):
         "grupo_": grupo_,
         "generos": generos,
         "cor_racas": cor_racas,
-        "error_message": error_message
+        "error_message": error_message,
+        "csc_api_key": settings.CSC_API_KEY,
     })
