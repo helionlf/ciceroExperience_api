@@ -1,5 +1,5 @@
 {% extends "cicero_experience/base.html" %}
-
+{% load static %}
 
 {% block title %}Página Inicial{% endblock %}
 
@@ -19,9 +19,24 @@
     <fieldset>
         <legend><h1>Formulário</h1></legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-            <input type="text" name="pais" id="pais" value="">
+            <!-- <input type="text" name="pais" id="pais" value="">
             <input type="text" name="estado" id="estado" value="">
-            <input type="text" name="cidade" id="cidade" value="">
+            <input type="text" name="cidade" id="cidade" value=""> -->
+
+            <label for="country">País:</label>
+            <select id="country" name="pais">
+                <option value="">Selecione um país</option>
+            </select>
+
+            <label for="state">Estado:</label>
+            <select id="state" name="estado">
+                <option value="">Selecione um estado</option>
+            </select>
+
+            <label for="city">Cidade:</label>
+            <select id="city" name="cidade">
+                <option value="">Selecione uma cidade</option>
+            </select>
 
             <label for="faixa_etaria">Faixa Etária:</label>
             <select name="faixa_etaria" id="faixa_etaria">
@@ -56,6 +71,8 @@
     <button type="submit">Enviar</button>
     </form>
 
+    {{ csc_api_key|json_script:"csc-api-key" }}
+
     <script>
             async function makeFingerprint() {
             const ua = navigator.userAgent;
@@ -72,4 +89,6 @@
             document.getElementById("fingerprint").value = fp;
         })();
     </script>
+
+    <script src="{% static 'js/location.js' %}" defer></script>
 {% endblock %}

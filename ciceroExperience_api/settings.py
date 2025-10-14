@@ -19,6 +19,8 @@ from dotenv import load_dotenv
 # Carrega o .env
 load_dotenv()
 
+CSC_API_KEY = os.getenv("CSC_API_KEY") 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,6 +78,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ciceroExperience_api.wsgi.application'
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'cicero_experience', 'static'),
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
