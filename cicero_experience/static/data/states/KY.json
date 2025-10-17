@@ -1,0 +1,47 @@
+[
+  {
+    "id": 5251,
+    "name": "Grand Cayman",
+    "country_id": 41,
+    "country_code": "KY",
+    "iso2": "01",
+    "iso3166_2": "KY-01",
+    "type": "",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "19.32984710",
+    "longitude": "-81.17122160",
+    "timezone": "America/Cayman"
+  },
+  {
+    "id": 5252,
+    "name": "Cayman Brac",
+    "country_id": 41,
+    "country_code": "KY",
+    "iso2": "02",
+    "iso3166_2": "KY-02",
+    "type": "",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "19.71988620",
+    "longitude": "-79.79314000",
+    "timezone": "America/Cayman"
+  },
+  {
+    "id": 5253,
+    "name": "Little Cayman",
+    "country_id": 41,
+    "country_code": "KY",
+    "iso2": "03",
+    "iso3166_2": "KY-03",
+    "type": "",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "19.68533460",
+    "longitude": "-80.04778240",
+    "timezone": "America/Cayman"
+  }
+]

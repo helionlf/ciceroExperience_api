@@ -1,0 +1,47 @@
+[
+  {
+    "id": 5419,
+    "name": "Saint Peter",
+    "country_id": 148,
+    "country_code": "MS",
+    "iso2": "01",
+    "iso3166_2": "MS-01",
+    "type": "parish",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "16.77659810",
+    "longitude": "-62.20007860",
+    "timezone": "America/Montserrat"
+  },
+  {
+    "id": 5420,
+    "name": "Saint Georges",
+    "country_id": 148,
+    "country_code": "MS",
+    "iso2": "02",
+    "iso3166_2": "MS-02",
+    "type": "parish",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "16.74847550",
+    "longitude": "-62.19074720",
+    "timezone": "America/Montserrat"
+  },
+  {
+    "id": 5421,
+    "name": "Saint Anthony",
+    "country_id": 148,
+    "country_code": "MS",
+    "iso2": "03",
+    "iso3166_2": "MS-03",
+    "type": "parish",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "16.70562450",
+    "longitude": "-62.18553040",
+    "timezone": "America/Montserrat"
+  }
+]

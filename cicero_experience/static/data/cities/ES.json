@@ -1,0 +1,245 @@
+[
+  {
+    "state_name": "Espírito Santo",
+    "state_iso2": "ES",
+    "cities": [
+      {
+        "name": "Afonso Cláudio"
+      },
+      {
+        "name": "Alegre"
+      },
+      {
+        "name": "Alfredo Chaves"
+      },
+      {
+        "name": "Alto Rio Novo"
+      },
+      {
+        "name": "Anchieta"
+      },
+      {
+        "name": "Apiacá"
+      },
+      {
+        "name": "Aracruz"
+      },
+      {
+        "name": "Atílio Vivacqua"
+      },
+      {
+        "name": "Baixo Guandu"
+      },
+      {
+        "name": "Barra de São Francisco"
+      },
+      {
+        "name": "Boa Esperança"
+      },
+      {
+        "name": "Bom Jesus do Norte"
+      },
+      {
+        "name": "Brejetuba"
+      },
+      {
+        "name": "Cachoeiro de Itapemirim"
+      },
+      {
+        "name": "Cariacica"
+      },
+      {
+        "name": "Castelo"
+      },
+      {
+        "name": "Colatina"
+      },
+      {
+        "name": "Conceição da Barra"
+      },
+      {
+        "name": "Conceição do Castelo"
+      },
+      {
+        "name": "Divino de São Lourenço"
+      },
+      {
+        "name": "Domingos Martins"
+      },
+      {
+        "name": "Dores do Rio Preto"
+      },
+      {
+        "name": "Ecoporanga"
+      },
+      {
+        "name": "Fundão"
+      },
+      {
+        "name": "Governador Lindenberg"
+      },
+      {
+        "name": "Guarapari"
+      },
+      {
+        "name": "Guaçuí"
+      },
+      {
+        "name": "Ibatiba"
+      },
+      {
+        "name": "Ibiraçu"
+      },
+      {
+        "name": "Ibitirama"
+      },
+      {
+        "name": "Iconha"
+      },
+      {
+        "name": "Irupi"
+      },
+      {
+        "name": "Itaguaçu"
+      },
+      {
+        "name": "Itapemirim"
+      },
+      {
+        "name": "Itarana"
+      },
+      {
+        "name": "Iúna"
+      },
+      {
+        "name": "Jaguaré"
+      },
+      {
+        "name": "Jerônimo Monteiro"
+      },
+      {
+        "name": "Jetibá"
+      },
+      {
+        "name": "João Neiva"
+      },
+      {
+        "name": "Laranja da Terra"
+      },
+      {
+        "name": "Linhares"
+      },
+      {
+        "name": "Mantenópolis"
+      },
+      {
+        "name": "Marataizes"
+      },
+      {
+        "name": "Marechal Floriano"
+      },
+      {
+        "name": "Marilândia"
+      },
+      {
+        "name": "Mimoso do Sul"
+      },
+      {
+        "name": "Montanha"
+      },
+      {
+        "name": "Mucurici"
+      },
+      {
+        "name": "Muniz Freire"
+      },
+      {
+        "name": "Muqui"
+      },
+      {
+        "name": "Nova Venécia"
+      },
+      {
+        "name": "Pancas"
+      },
+      {
+        "name": "Pedro Canário"
+      },
+      {
+        "name": "Pinheiros"
+      },
+      {
+        "name": "Piúma"
+      },
+      {
+        "name": "Ponto Belo"
+      },
+      {
+        "name": "Presidente Kennedy"
+      },
+      {
+        "name": "Rio Bananal"
+      },
+      {
+        "name": "Rio Novo do Sul"
+      },
+      {
+        "name": "Santa Leopoldina"
+      },
+      {
+        "name": "Santa Maria de Jetibá"
+      },
+      {
+        "name": "Santa Teresa"
+      },
+      {
+        "name": "Serra"
+      },
+      {
+        "name": "Sooretama"
+      },
+      {
+        "name": "São Domingos do Norte"
+      },
+      {
+        "name": "São Gabriel da Palha"
+      },
+      {
+        "name": "São José do Calçado"
+      },
+      {
+        "name": "São Mateus"
+      },
+      {
+        "name": "São Roque do Canaã"
+      },
+      {
+        "name": "Vargem Alta"
+      },
+      {
+        "name": "Venda Nova do Imigrante"
+      },
+      {
+        "name": "Viana"
+      },
+      {
+        "name": "Vila Pavão"
+      },
+      {
+        "name": "Vila Valério"
+      },
+      {
+        "name": "Vila Velha"
+      },
+      {
+        "name": "Vitória"
+      },
+      {
+        "name": "Água Doce do Norte"
+      },
+      {
+        "name": "Águia Branca"
+      }
+    ]
+  }
+]

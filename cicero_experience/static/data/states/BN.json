@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1216,
+    "name": "Brunei-Muara",
+    "country_id": 33,
+    "country_code": "BN",
+    "iso2": "BM",
+    "iso3166_2": "BN-BM",
+    "type": "district",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "4.97520980",
+    "longitude": "114.93676630",
+    "timezone": "Asia/Brunei"
+  },
+  {
+    "id": 1217,
+    "name": "Belait",
+    "country_id": 33,
+    "country_code": "BN",
+    "iso2": "BE",
+    "iso3166_2": "BN-BE",
+    "type": "district",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "4.43499380",
+    "longitude": "114.49465240",
+    "timezone": "Asia/Brunei"
+  },
+  {
+    "id": 1218,
+    "name": "Temburong",
+    "country_id": 33,
+    "country_code": "BN",
+    "iso2": "TE",
+    "iso3166_2": "BN-TE",
+    "type": "district",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "4.62918400",
+    "longitude": "115.16344080",
+    "timezone": "Asia/Brunei"
+  },
+  {
+    "id": 1219,
+    "name": "Tutong",
+    "country_id": 33,
+    "country_code": "BN",
+    "iso2": "TU",
+    "iso3166_2": "BN-TU",
+    "type": "district",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "4.68268100",
+    "longitude": "114.65627060",
+    "timezone": "Asia/Brunei"
+  }
+]

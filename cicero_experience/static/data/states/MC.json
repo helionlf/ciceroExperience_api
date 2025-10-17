@@ -1,0 +1,47 @@
+[
+  {
+    "id": 4917,
+    "name": "La Colle",
+    "country_id": 145,
+    "country_code": "MC",
+    "iso2": "CL",
+    "iso3166_2": "MC-CL",
+    "type": "quarter",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "43.73274650",
+    "longitude": "7.41372760",
+    "timezone": "Europe/Monaco"
+  },
+  {
+    "id": 4918,
+    "name": "La Condamine",
+    "country_id": 145,
+    "country_code": "MC",
+    "iso2": "CO",
+    "iso3166_2": "MC-CO",
+    "type": "quarter",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "43.73506650",
+    "longitude": "7.41990600",
+    "timezone": "Europe/Monaco"
+  },
+  {
+    "id": 4919,
+    "name": "Moneghetti",
+    "country_id": 145,
+    "country_code": "MC",
+    "iso2": "MG",
+    "iso3166_2": "MC-MG",
+    "type": "quarter",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "43.73649270",
+    "longitude": "7.41533830",
+    "timezone": "Europe/Monaco"
+  }
+]

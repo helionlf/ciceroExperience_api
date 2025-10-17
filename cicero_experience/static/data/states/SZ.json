@@ -1,0 +1,62 @@
+[
+  {
+    "id": 968,
+    "name": "Manzini",
+    "country_id": 212,
+    "country_code": "SZ",
+    "iso2": "MA",
+    "iso3166_2": "SZ-MA",
+    "type": "region",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-26.49764440",
+    "longitude": "31.37508150",
+    "timezone": "Africa/Mbabane"
+  },
+  {
+    "id": 969,
+    "name": "Hhohho",
+    "country_id": 212,
+    "country_code": "SZ",
+    "iso2": "HH",
+    "iso3166_2": "SZ-HH",
+    "type": "region",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-26.09880120",
+    "longitude": "31.36308220",
+    "timezone": "Africa/Mbabane"
+  },
+  {
+    "id": 970,
+    "name": "Lubombo",
+    "country_id": 212,
+    "country_code": "SZ",
+    "iso2": "LU",
+    "iso3166_2": "SZ-LU",
+    "type": "region",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-26.55452000",
+    "longitude": "31.86191160",
+    "timezone": "Africa/Mbabane"
+  },
+  {
+    "id": 971,
+    "name": "Shiselweni",
+    "country_id": 212,
+    "country_code": "SZ",
+    "iso2": "SH",
+    "iso3166_2": "SZ-SH",
+    "type": "region",
+    "level": null,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-27.03602200",
+    "longitude": "31.33212980",
+    "timezone": "Africa/Mbabane"
+  }
+]

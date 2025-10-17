@@ -1,0 +1,62 @@
+[
+  {
+    "id": 2580,
+    "name": "Chuuk",
+    "country_id": 143,
+    "country_code": "FM",
+    "iso2": "TRK",
+    "iso3166_2": "FM-TRK",
+    "type": "state",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "7.43937930",
+    "longitude": "151.85155380",
+    "timezone": "Pacific/Chuuk"
+  },
+  {
+    "id": 2581,
+    "name": "Pohnpei",
+    "country_id": 143,
+    "country_code": "FM",
+    "iso2": "PNI",
+    "iso3166_2": "FM-PNI",
+    "type": "state",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "6.88704670",
+    "longitude": "158.24061380",
+    "timezone": "Pacific/Pohnpei"
+  },
+  {
+    "id": 2582,
+    "name": "Yap",
+    "country_id": 143,
+    "country_code": "FM",
+    "iso2": "YAP",
+    "iso3166_2": "FM-YAP",
+    "type": "state",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "9.54626830",
+    "longitude": "138.16515990",
+    "timezone": "Pacific/Chuuk"
+  },
+  {
+    "id": 2583,
+    "name": "Kosrae",
+    "country_id": 143,
+    "country_code": "FM",
+    "iso2": "KSA",
+    "iso3166_2": "FM-KSA",
+    "type": "state",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "5.30956180",
+    "longitude": "162.98148770",
+    "timezone": "Pacific/Kosrae"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "state_name": "Acre",
+    "state_iso2": "AC",
+    "cities": [
+      {
+        "name": "Acrelândia"
+      },
+      {
+        "name": "Assis Brasil"
+      },
+      {
+        "name": "Brasiléia"
+      },
+      {
+        "name": "Bujari"
+      },
+      {
+        "name": "Capixaba"
+      },
+      {
+        "name": "Cruzeiro do Sul"
+      },
+      {
+        "name": "Epitaciolândia"
+      },
+      {
+        "name": "Feijó"
+      },
+      {
+        "name": "Jordão"
+      },
+      {
+        "name": "Manoel Urbano"
+      },
+      {
+        "name": "Marechal Thaumaturgo"
+      },
+      {
+        "name": "Mâncio Lima"
+      },
+      {
+        "name": "Plácido de Castro"
+      },
+      {
+        "name": "Porto Acre"
+      },
+      {
+        "name": "Porto Walter"
+      },
+      {
+        "name": "Rio Branco"
+      },
+      {
+        "name": "Rodrigues Alves"
+      },
+      {
+        "name": "Santa Rosa do Purus"
+      },
+      {
+        "name": "Sena Madureira"
+      },
+      {
+        "name": "Senador Guiomard"
+      },
+      {
+        "name": "Tarauacá"
+      },
+      {
+        "name": "Xapuri"
+      }
+    ]
+  }
+]
