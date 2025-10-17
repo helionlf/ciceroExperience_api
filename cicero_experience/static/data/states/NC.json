@@ -1,0 +1,47 @@
+[
+  {
+    "id": 5225,
+    "name": "South Province",
+    "country_id": 157,
+    "country_code": "NC",
+    "iso2": "01",
+    "iso3166_2": "NC-01",
+    "type": "province",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-22.27584210",
+    "longitude": "166.64179460",
+    "timezone": "Pacific/Noumea"
+  },
+  {
+    "id": 5226,
+    "name": "North Province",
+    "country_id": 157,
+    "country_code": "NC",
+    "iso2": "02",
+    "iso3166_2": "NC-02",
+    "type": "province",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-20.14725120",
+    "longitude": "164.12375680",
+    "timezone": "Pacific/Noumea"
+  },
+  {
+    "id": 5227,
+    "name": "Loyalty Islands Province",
+    "country_id": 157,
+    "country_code": "NC",
+    "iso2": "03",
+    "iso3166_2": "NC-03",
+    "type": "province",
+    "level": 1,
+    "parent_id": null,
+    "native": null,
+    "latitude": "-20.97296600",
+    "longitude": "167.28842950",
+    "timezone": "Pacific/Noumea"
+  }
+]

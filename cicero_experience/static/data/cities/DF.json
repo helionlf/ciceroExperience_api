@@ -1,0 +1,14 @@
+[
+  {
+    "state_name": "Distrito Federal",
+    "state_iso2": "DF",
+    "cities": [
+      {
+        "name": "Brasília"
+      },
+      {
+        "name": "Planaltina"
+      }
+    ]
+  }
+]

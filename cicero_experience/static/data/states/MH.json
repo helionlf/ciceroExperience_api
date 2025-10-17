@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2573,
+    "name": "Ratak",
+    "country_id": 137,
+    "country_code": "MH",
+    "iso2": "T",
+    "iso3166_2": "MH-T",
+    "type": "chain",
+    "level": 4,
+    "parent_id": null,
+    "native": null,
+    "latitude": "8.61505500",
+    "longitude": "170.82055470",
+    "timezone": "Pacific/Majuro"
+  },
+  {
+    "id": 2574,
+    "name": "Ralik",
+    "country_id": 137,
+    "country_code": "MH",
+    "iso2": "L",
+    "iso3166_2": "MH-L",
+    "type": "chain",
+    "level": 4,
+    "parent_id": null,
+    "native": null,
+    "latitude": "8.23081700",
+    "longitude": "167.79532240",
+    "timezone": "Pacific/Majuro"
+  }
+]

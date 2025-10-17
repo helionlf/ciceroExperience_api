@@ -1,0 +1,512 @@
+[
+  {
+    "state_name": "Rio Grande do Norte",
+    "state_iso2": "RN",
+    "cities": [
+      {
+        "name": "Acari"
+      },
+      {
+        "name": "Afonso Bezerra"
+      },
+      {
+        "name": "Alexandria"
+      },
+      {
+        "name": "Almino Afonso"
+      },
+      {
+        "name": "Alto do Rodrigues"
+      },
+      {
+        "name": "Angicos"
+      },
+      {
+        "name": "Antônio Martins"
+      },
+      {
+        "name": "Apodi"
+      },
+      {
+        "name": "Areia Branca"
+      },
+      {
+        "name": "Arês"
+      },
+      {
+        "name": "Augusto Severo"
+      },
+      {
+        "name": "Açu"
+      },
+      {
+        "name": "Baraúna"
+      },
+      {
+        "name": "Barcelona"
+      },
+      {
+        "name": "Baía Formosa"
+      },
+      {
+        "name": "Bento Fernandes"
+      },
+      {
+        "name": "Bodó"
+      },
+      {
+        "name": "Bom Jesus"
+      },
+      {
+        "name": "Brejinho"
+      },
+      {
+        "name": "Caicó"
+      },
+      {
+        "name": "Caiçara do Norte"
+      },
+      {
+        "name": "Caiçara do Rio do Vento"
+      },
+      {
+        "name": "Campo Redondo"
+      },
+      {
+        "name": "Canguaretama"
+      },
+      {
+        "name": "Caraúbas"
+      },
+      {
+        "name": "Carnaubais"
+      },
+      {
+        "name": "Carnaúba dos Dantas"
+      },
+      {
+        "name": "Ceará Mirim"
+      },
+      {
+        "name": "Cerro Corá"
+      },
+      {
+        "name": "Coronel Ezequiel"
+      },
+      {
+        "name": "Coronel João Pessoa"
+      },
+      {
+        "name": "Cruzeta"
+      },
+      {
+        "name": "Currais Novos"
+      },
+      {
+        "name": "Doutor Severiano"
+      },
+      {
+        "name": "Encanto"
+      },
+      {
+        "name": "Equador"
+      },
+      {
+        "name": "Espírito Santo"
+      },
+      {
+        "name": "Extremoz"
+      },
+      {
+        "name": "Felipe Guerra"
+      },
+      {
+        "name": "Fernando Pedroza"
+      },
+      {
+        "name": "Florânia"
+      },
+      {
+        "name": "Francisco Dantas"
+      },
+      {
+        "name": "Frutuoso Gomes"
+      },
+      {
+        "name": "Galinhos"
+      },
+      {
+        "name": "Goianinha"
+      },
+      {
+        "name": "Governador Dix Sept Rosado"
+      },
+      {
+        "name": "Campo Grande"
+      },
+      {
+        "name": "Grossos"
+      },
+      {
+        "name": "Guamaré"
+      },
+      {
+        "name": "Ielmo Marinho"
+      },
+      {
+        "name": "Ipanguaçu"
+      },
+      {
+        "name": "Ipueira"
+      },
+      {
+        "name": "Itajá"
+      },
+      {
+        "name": "Itaú"
+      },
+      {
+        "name": "Jandaíra"
+      },
+      {
+        "name": "Janduís"
+      },
+      {
+        "name": "Boa Saúde"
+      },
+      {
+        "name": "Japi"
+      },
+      {
+        "name": "Jardim de Angicos"
+      },
+      {
+        "name": "Jardim de Piranhas"
+      },
+      {
+        "name": "Jardim do Seridó"
+      },
+      {
+        "name": "Jaçanã"
+      },
+      {
+        "name": "José da Penha"
+      },
+      {
+        "name": "João Câmara"
+      },
+      {
+        "name": "João Dias"
+      },
+      {
+        "name": "Jucurutu"
+      },
+      {
+        "name": "Jundiá"
+      },
+      {
+        "name": "Lagoa Nova"
+      },
+      {
+        "name": "Lagoa Salgada"
+      },
+      {
+        "name": "Lagoa d'Anta"
+      },
+      {
+        "name": "Lagoa de Pedras"
+      },
+      {
+        "name": "Lagoa de Velhos"
+      },
+      {
+        "name": "Lajes"
+      },
+      {
+        "name": "Lajes Pintadas"
+      },
+      {
+        "name": "Lucrécia"
+      },
+      {
+        "name": "Luís Gomes"
+      },
+      {
+        "name": "Macau"
+      },
+      {
+        "name": "Macaíba"
+      },
+      {
+        "name": "Major Sales"
+      },
+      {
+        "name": "Marcelino Vieira"
+      },
+      {
+        "name": "Martins"
+      },
+      {
+        "name": "Maxaranguape"
+      },
+      {
+        "name": "Messias Targino"
+      },
+      {
+        "name": "Montanhas"
+      },
+      {
+        "name": "Monte Alegre"
+      },
+      {
+        "name": "Monte das Gameleiras"
+      },
+      {
+        "name": "Mossoró"
+      },
+      {
+        "name": "Natal"
+      },
+      {
+        "name": "Nova Cruz"
+      },
+      {
+        "name": "Nísia Floresta"
+      },
+      {
+        "name": "Olho-d'Água do Borges"
+      },
+      {
+        "name": "Ouro Branco"
+      },
+      {
+        "name": "Paraná"
+      },
+      {
+        "name": "Parazinho"
+      },
+      {
+        "name": "Paraú"
+      },
+      {
+        "name": "Parelhas"
+      },
+      {
+        "name": "Parnamirim"
+      },
+      {
+        "name": "Passa e Fica"
+      },
+      {
+        "name": "Passagem"
+      },
+      {
+        "name": "Patu"
+      },
+      {
+        "name": "Pau dos Ferros"
+      },
+      {
+        "name": "Pedra Grande"
+      },
+      {
+        "name": "Pedra Preta"
+      },
+      {
+        "name": "Pedro Avelino"
+      },
+      {
+        "name": "Pedro Velho"
+      },
+      {
+        "name": "Pendências"
+      },
+      {
+        "name": "Pilões"
+      },
+      {
+        "name": "Portalegre"
+      },
+      {
+        "name": "Porto do Mangue"
+      },
+      {
+        "name": "Poço Branco"
+      },
+      {
+        "name": "Pureza"
+      },
+      {
+        "name": "Rafael Fernandes"
+      },
+      {
+        "name": "Rafael Godeiro"
+      },
+      {
+        "name": "Riacho da Cruz"
+      },
+      {
+        "name": "Riacho de Santana"
+      },
+      {
+        "name": "Riachuelo"
+      },
+      {
+        "name": "Rio do Fogo"
+      },
+      {
+        "name": "Rodolfo Fernandes"
+      },
+      {
+        "name": "Ruy Barbosa"
+      },
+      {
+        "name": "Santa Cruz"
+      },
+      {
+        "name": "Santa Maria"
+      },
+      {
+        "name": "Santana do Matos"
+      },
+      {
+        "name": "Santana do Seridó"
+      },
+      {
+        "name": "Santo Antônio"
+      },
+      {
+        "name": "Senador Elói de Souza"
+      },
+      {
+        "name": "Senador Georgino Avelino"
+      },
+      {
+        "name": "Serra Caiada"
+      },
+      {
+        "name": "Serra Negra do Norte"
+      },
+      {
+        "name": "Serra de São Bento"
+      },
+      {
+        "name": "Serra do Mel"
+      },
+      {
+        "name": "Serrinha"
+      },
+      {
+        "name": "Serrinha dos Pintos"
+      },
+      {
+        "name": "Severiano Melo"
+      },
+      {
+        "name": "São Bento do Norte"
+      },
+      {
+        "name": "São Bento do Trairí"
+      },
+      {
+        "name": "São Fernando"
+      },
+      {
+        "name": "São Francisco do Oeste"
+      },
+      {
+        "name": "São Gonçalo do Amarante"
+      },
+      {
+        "name": "São José de Mipibu"
+      },
+      {
+        "name": "São José do Campestre"
+      },
+      {
+        "name": "São José do Seridó"
+      },
+      {
+        "name": "São João do Sabugi"
+      },
+      {
+        "name": "São Miguel"
+      },
+      {
+        "name": "São Miguel do Gostoso"
+      },
+      {
+        "name": "São Paulo do Potengi"
+      },
+      {
+        "name": "São Pedro"
+      },
+      {
+        "name": "São Rafael"
+      },
+      {
+        "name": "São Tomé"
+      },
+      {
+        "name": "São Vicente"
+      },
+      {
+        "name": "Sítio Novo"
+      },
+      {
+        "name": "Taboleiro Grande"
+      },
+      {
+        "name": "Taipu"
+      },
+      {
+        "name": "Tangará"
+      },
+      {
+        "name": "Tenente Ananias"
+      },
+      {
+        "name": "Tenente Laurentino Cruz"
+      },
+      {
+        "name": "Tibau"
+      },
+      {
+        "name": "Tibau do Sul"
+      },
+      {
+        "name": "Timbaúba dos Batistas"
+      },
+      {
+        "name": "Touros"
+      },
+      {
+        "name": "Triunfo Potiguar"
+      },
+      {
+        "name": "Umarizal"
+      },
+      {
+        "name": "Upanema"
+      },
+      {
+        "name": "Venha-Ver"
+      },
+      {
+        "name": "Vera Cruz"
+      },
+      {
+        "name": "Vila Flor"
+      },
+      {
+        "name": "Viçosa"
+      },
+      {
+        "name": "Várzea"
+      },
+      {
+        "name": "Água Nova"
+      }
+    ]
+  }
+]
