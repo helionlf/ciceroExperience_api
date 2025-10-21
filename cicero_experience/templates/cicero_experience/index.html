@@ -4,91 +4,89 @@
 {% block title %}Página Inicial{% endblock %}
 
 {% block content %}
-    {% if visitantes_list %}
-        <ul>
-        {% for visitante in visitantes_list %}
-            <li><a href="/cicero-experience/{{ visitante.id }}/">{{ visitante.faixa_etaria }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No visitantes are available.</p>
-    {% endif %}
 
-    <form action="{% url 'index'%}" method="post">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="fingerprint" id="fingerprint">
+    <input type="hidden" name="action" value="checkin">
+    <button type="submit">Fazer Check-in</button>
+</form>
+
+<form action="{% url 'index'%}" method="post">
     {% csrf_token %}
     <fieldset>
-        <legend><h1>Formulário</h1></legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-            <!-- <input type="text" name="pais" id="pais" value="">
-            <input type="text" name="estado" id="estado" value="">
-            <input type="text" name="cidade" id="cidade" value=""> -->
+        <legend>
+            <h1>Formulário</h1>
+        </legend>
+        <label for="country">País:</label>
+        <select id="country" name="pais">
+            <option value="">Selecione um país</option>
+        </select>
 
-            <label for="country">País:</label>
-            <select id="country" name="pais">
-                <option value="">Selecione um país</option>
-            </select>
+        <label for="state">Estado:</label>
+        <select id="state" name="estado">
+            <option value="">Selecione um estado</option>
+        </select>
 
-            <label for="state">Estado:</label>
-            <select id="state" name="estado">
-                <option value="">Selecione um estado</option>
-            </select>
+        <label for="city">Cidade:</label>
+        <select id="city" name="cidade">
+            <option value="">Selecione uma cidade</option>
+        </select>
 
-            <label for="city">Cidade:</label>
-            <select id="city" name="cidade">
-                <option value="">Selecione uma cidade</option>
-            </select>
+        <label for="faixa_etaria">Faixa Etária:</label>
+        <select name="faixa_etaria" id="faixa_etaria">
+            {% for value, label in faixas_etarias_choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="faixa_etaria">Faixa Etária:</label>
-            <select name="faixa_etaria" id="faixa_etaria">
-                {% for value, label in faixas_etarias_choices %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
+        <label for="grupo">Grupo:</label>
+        <select name="grupo" id="grupo">
+            {% for value, label in grupo_ %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="grupo">Grupo:</label>
-            <select name="grupo" id="grupo">
-                {% for value, label in grupo_ %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
+        <label for="genero">Genero:</label>
+        <select name="genero" id="genero">
+            {% for value, label in generos %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="genero">Genero:</label>
-            <select name="genero" id="genero">
-                {% for value, label in generos %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
+        <label for="cor_raca">Cor/Raça:</label>
+        <select name="cor_raca" id="cor_raca">
+            {% for value, label in cor_racas %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="cor_raca">Cor/Raça:</label>
-            <select name="cor_raca" id="cor_raca">
-                {% for value, label in cor_racas %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
-
-            <input type="hidden" name="fingerprint" id="fingerprint">
+        <input type="hidden" name="action" value="form">
+        <input type="hidden" name="fingerprint" id="fingerprint">
     </fieldset>
     <button type="submit">Enviar</button>
-    </form>
+</form>
 
-    {{ csc_api_key|json_script:"csc-api-key" }}
+<script>
+    async function makeFingerprint() {
+        const ua = navigator.userAgent;
+        const screenInfo = [screen.width, screen.height, screen.colorDepth].join('x');
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const raw = [ua, screenInfo, tz].join('||');
+        const enc = new TextEncoder().encode(raw);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 
-    <script>
-            async function makeFingerprint() {
-            const ua = navigator.userAgent;
-            const screenInfo = [screen.width, screen.height, screen.colorDepth].join('x');
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-            const raw = [ua, screenInfo, tz].join('||');
-            const enc = new TextEncoder().encode(raw);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
-            return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
-        }
+    (async () => {
+        const fp = await makeFingerprint();
+        document.querySelectorAll('input[name="fingerprint"]').forEach(input => {
+            input.value = fp;
+        });
+    })();
+</script>
 
-        (async () => {
-            const fp = await makeFingerprint();
-            document.getElementById("fingerprint").value = fp;
-        })();
-    </script>
-
-    <script src="{% static 'js/location.js' %}" defer></script>
+<script src="{% static 'js/location.js' %}" defer></script>
 {% endblock %}
