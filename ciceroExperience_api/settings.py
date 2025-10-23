@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "cicero_experience.apps.CiceroExperienceConfig",
+    "dashboard.apps.DashboardConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,6 +83,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'cicero_experience', 'static'),
 ]
+
+LOGIN_URL = '/admin/login/'       # quando não estiver logado, vai para o login do admin
+LOGIN_REDIRECT_URL = '/dashboard/'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

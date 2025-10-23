@@ -20,5 +20,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path("cicero-experience/", include("cicero_experience.urls")),
+    path("dashboard/", include("dashboard.urls")),
     path("admin/", admin.site.urls),
 ]
