@@ -1,0 +1,116 @@
+
+# Arquivos DLL compilados/otimizados em bytes
+__pycache__ /
+* .py [ bacalhau ]
+* $py.class
+
+# Extensões C
+* .então
+
+# Distribuição / embalagem
+.Python
+ambiente /
+construir /
+desenvolver-ovos /
+dist /
+downloads /
+ovos /
+.ovos /
+biblioteca /
+lib64 /
+partes /
+sdist /
+var /
+rodas /
+* .egg-info /
+.instalado.cfg
+* .ovo
+
+# Instalador Py
+#   Normalmente esses arquivos são escritos por um script python a partir de um modelo
+#   antes que o PyInstaller crie o exe, para injetar data/outras informações nele.
+* .manifesto
+* .especificação
+
+# Logs do instalador
+pip-log.txt
+pip-delete-este-diretório.txt
+
+# Testes unitários / relatórios de cobertura
+htmlcov /
+.tox /
+.cobertura
+.cobertura. *
+.cache
+testes de nariz.xml
+cobertura.xml
+* .cobrir
+.hipótese /
+
+# Traduções
+* .mo
+* .pote
+
+# Coisas do Django:
+* .registro
+configurações_locais.py
+
+# Coisas de frasco:
+instância /
+.webassets-cache
+
+# Coisas estranhas:
+.rascunho
+
+# Documentação do Sphinx
+documentos / _build /
+
+# Construtor Py
+alvo /
+
+# Caderno Jupyter
+.ipynb_pontos de verificação
+
+# pyenv
+.versão-python
+
+# arquivo de agendamento de batidas de aipo
+agenda do celerybeat
+
+# Arquivos analisados ​​pelo SageMath
+* .sage.py
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv /
+Ambiente /
+.vscode
+# Configurações do projeto Spyder
+.projeto spyder
+.projeto espião
+
+# Configurações do projeto de corda
+.projeto de corda
+
+# documentação do mkdocs
+/ site
+
+# meupy
+.mypy_cache /
+
+.DS_Store
+* .sqlite3
+mídia /
+* .pyc
+* .db
+* .pid
+
+# Ignore as migrações do Django no desenvolvimento se você estiver trabalhando em equipe
+
+# Somente para desenvolvimento
+# **/migrações/**
+# !**/migrações
+# !**/migrações/__init__.py
