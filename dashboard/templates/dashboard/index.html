@@ -1,1 +1,552 @@
-<p>{{ contagem_visitantes_hoje }}</p>
+{% extends "dashboard/base.html" %}
+
+{% block title %}Dashboard do Horto{% endblock %}
+
+{% block extra_head %}
+{{ block.super }}
+<style>
+    .dashboard-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .dashboard-hero__title {
+        margin: 0;
+        font-size: clamp(2.1rem, 4vw, 2.9rem);
+        font-weight: 700;
+        color: var(--primary-600);
+        letter-spacing: -0.02em;
+    }
+
+    .dashboard-hero__subtitle {
+        margin: 0.15rem 0 0;
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        max-width: 560px;
+    }
+
+    .dashboard-hero__filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .filter-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+        padding: 0.55rem 1.35rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        background: rgba(15, 23, 42, 0.05);
+        border: 1px solid transparent;
+        transition: all 180ms ease;
+    }
+
+    .filter-pill:hover {
+        border-color: rgba(15, 23, 42, 0.12);
+    }
+
+    .filter-pill.is-active {
+        color: #fff;
+        background: var(--primary-500);
+        box-shadow: 0 12px 28px rgba(26, 77, 255, 0.24);
+    }
+
+    .date-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(15, 23, 42, 0.04);
+        padding: 0.85rem 1.15rem;
+        border-radius: 18px;
+    }
+
+    .date-indicator__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(26, 77, 255, 0.14);
+        color: var(--primary-500);
+        font-size: 1.25rem;
+    }
+
+    .date-indicator__label {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--text-muted);
+    }
+
+    .date-indicator__value {
+        margin: 0.35rem 0 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text-strong);
+    }
+
+    .date-indicator__length {
+        margin-left: 0.45rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .metric-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        --accent: var(--primary-500);
+        --accent-soft: var(--primary-soft);
+    }
+
+    .metric-card::after {
+        content: "";
+        position: absolute;
+        inset: -60px -60px auto auto;
+        width: 140px;
+        height: 140px;
+        background: var(--accent-soft);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .metric-card__icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        font-weight: 600;
+        background: rgba(26, 77, 255, 0.14);
+        color: var(--accent);
+        z-index: 1;
+    }
+
+    .metric-card__title {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        z-index: 1;
+    }
+
+    .metric-card__value {
+        margin: 0;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        font-weight: 700;
+        color: var(--text-strong);
+        z-index: 1;
+    }
+
+    .metric-card__value span {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .metric-card__meta {
+        margin-top: auto;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        z-index: 1;
+    }
+
+    .metric-card--cities {
+        --accent: var(--accent-amber);
+        --accent-soft: rgba(245, 158, 11, 0.17);
+    }
+
+    .metric-card--age {
+        --accent: var(--accent-rose);
+        --accent-soft: rgba(244, 114, 182, 0.16);
+    }
+
+    .metric-card--experience {
+        --accent: var(--accent-green);
+        --accent-soft: rgba(34, 197, 94, 0.18);
+    }
+
+    .insights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .ranking-list,
+    .recent-list,
+    .age-grid {
+        list-style: none;
+        padding: 0;
+        margin: 1.4rem 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .ranking-item {
+        display: flex;
+        gap: 0.9rem;
+        align-items: center;
+    }
+
+    .ranking-item__badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(250, 204, 21, 0.18);
+        color: #ca8a04;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+    }
+
+    .ranking-item__city {
+        margin: 0;
+        font-weight: 600;
+        color: var(--text-strong);
+    }
+
+    .ranking-item__meta {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+    }
+
+    .trend-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .trend-chart {
+        margin-top: 1.5rem;
+        height: 200px;
+        display: flex;
+        align-items: flex-end;
+        gap: 0.85rem;
+    }
+
+    .trend-column {
+        flex: 1;
+        min-width: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
+    }
+
+    .trend-bar {
+        width: 100%;
+        border-radius: 14px 14px 6px 6px;
+        background: linear-gradient(180deg, rgba(26, 77, 255, 0.72), rgba(26, 77, 255, 0.18));
+        position: relative;
+        transition: height 200ms ease;
+    }
+
+    .trend-bar::after {
+        content: attr(data-total);
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .trend-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    .recent-item {
+        display: grid;
+        grid-template-columns: 48px 1fr auto;
+        align-items: center;
+        gap: 0.9rem;
+    }
+
+    .recent-item__avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        background: rgba(56, 189, 248, 0.16);
+        color: #0369a1;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+    }
+
+    .recent-item__title {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-strong);
+    }
+
+    .recent-item__meta {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin: 0.3rem 0 0;
+    }
+
+    .recent-item__tag {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--accent-purple);
+        background: rgba(139, 92, 246, 0.14);
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+    }
+
+    .age-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .age-row__label {
+        flex: 0 0 180px;
+        font-size: 0.92rem;
+        color: var(--text-strong);
+        font-weight: 600;
+    }
+
+    .age-row__bar {
+        flex: 1;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.08);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .age-row__fill {
+        height: 100%;
+        background: linear-gradient(90deg, rgba(56, 189, 248, 0.7), rgba(56, 189, 248, 0.4));
+        border-radius: inherit;
+        transition: width 200ms ease;
+    }
+
+    .age-row__value {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        width: 54px;
+        text-align: right;
+    }
+
+    .empty-state {
+        margin: 1.2rem 0 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.96rem;
+        background: rgba(148, 163, 184, 0.12);
+        border-radius: 16px;
+        padding: 1.4rem;
+    }
+
+    @media (max-width: 640px) {
+        .age-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .age-row__label {
+            flex: none;
+        }
+
+        .recent-item {
+            grid-template-columns: 42px 1fr;
+        }
+
+        .recent-item__tag {
+            justify-self: flex-start;
+            margin-top: 0.4rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-hero dashboard-card dashboard-card--ghost">
+    <div>
+        <h1 class="dashboard-hero__title">Dashboard do Horto</h1>
+        <p class="dashboard-hero__subtitle">Acompanhe em tempo real as visitações ao Horto do Padre Cícero.</p>
+    </div>
+
+    <div class="dashboard-hero__filters">
+        {% for option in filters %}
+            <a class="filter-pill{% if option.active %} is-active{% endif %}" href="?range={{ option.key }}">{{ option.label }}</a>
+        {% endfor %}
+    </div>
+
+    {% with display=date_range.display %}
+    <div class="date-indicator">
+        <div class="date-indicator__icon" aria-hidden="true">📅</div>
+        <div>
+            <p class="date-indicator__label">Período analisado</p>
+            <p class="date-indicator__value">
+                {{ display.start }} – {{ display.end }}
+                <span class="date-indicator__length">({{ display.days }})</span>
+            </p>
+        </div>
+    </div>
+    {% endwith %}
+</section>
+
+<section class="metric-grid">
+    <article class="dashboard-card metric-card">
+        <div class="metric-card__icon" aria-hidden="true">👥</div>
+        <p class="metric-card__title">Total de Visitantes</p>
+        <p class="metric-card__value">{{ total_visitors }}</p>
+        <p class="metric-card__meta">no período selecionado</p>
+    </article>
+
+    <article class="dashboard-card metric-card metric-card--cities">
+        <div class="metric-card__icon" aria-hidden="true">🗺️</div>
+        <p class="metric-card__title">Cidades Representadas</p>
+        <p class="metric-card__value">{{ cities_count }}</p>
+        {% if states_count %}
+            <p class="metric-card__meta">em {{ states_count }} estado{{ states_count|pluralize }}</p>
+        {% else %}
+            <p class="metric-card__meta">aguardando visitantes</p>
+        {% endif %}
+    </article>
+
+    <article class="dashboard-card metric-card metric-card--age">
+        <div class="metric-card__icon" aria-hidden="true">❤️</div>
+        <p class="metric-card__title">Idade Média Estimada</p>
+        <p class="metric-card__value">
+            {% if average_age %}
+                {{ average_age }} <span>anos</span>
+            {% else %}
+                <span>Sem dados</span>
+            {% endif %}
+        </p>
+        <p class="metric-card__meta">baseado nas faixas etárias informadas</p>
+    </article>
+
+    <article class="dashboard-card metric-card metric-card--experience">
+        <div class="metric-card__icon" aria-hidden="true">🌿</div>
+        <p class="metric-card__title">Experiência Espiritual</p>
+        <p class="metric-card__value">{{ experience_summary.highlight }}</p>
+        <p class="metric-card__meta">{{ experience_summary.description }}</p>
+    </article>
+</section>
+
+<section class="insights-grid">
+    <article class="dashboard-card">
+        <header>
+            <h2 class="metric-card__title" style="font-size:1rem;">Ranking de Cidades</h2>
+            <p class="metric-card__meta">Locais com mais visitantes</p>
+        </header>
+        {% if city_rank %}
+            <ol class="ranking-list">
+                {% for item in city_rank %}
+                    <li class="ranking-item">
+                        <span class="ranking-item__badge">{{ forloop.counter }}</span>
+                        <div>
+                            <p class="ranking-item__city">{{ item.cidade }}</p>
+                            <span class="ranking-item__meta">
+                                {{ item.total }} visita{{ item.total|pluralize }}
+                                {% if item.estado %}
+                                    • {{ item.estado }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="empty-state">Nenhuma cidade registrada ainda.</p>
+        {% endif %}
+    </article>
+
+    <article class="dashboard-card trend-card">
+        <header>
+            <h2 class="metric-card__title" style="font-size:1rem;">Tendência de Visitas</h2>
+            <p class="metric-card__meta">Volume diário dentro do período</p>
+        </header>
+        {% if trend_peak %}
+            <div class="trend-chart">
+                {% for point in trend_series %}
+                    <div class="trend-column">
+                        <div class="trend-bar" style="height: {{ point.height }}%;" data-total="{{ point.total }}"></div>
+                        <span class="trend-label">{{ point.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">Nenhum registro no período selecionado.</p>
+        {% endif %}
+    </article>
+
+    <article class="dashboard-card">
+        <header>
+            <h2 class="metric-card__title" style="font-size:1rem;">Visitantes Recentes</h2>
+            <p class="metric-card__meta">Últimos cadastros realizados</p>
+        </header>
+        {% if recent_visitors %}
+            <ul class="recent-list">
+                {% for visitor in recent_visitors %}
+                    <li class="recent-item">
+                        <div class="recent-item__avatar">{{ visitor.initial }}</div>
+                        <div>
+                            <p class="recent-item__title">{{ visitor.city }}</p>
+                            <p class="recent-item__meta">
+                                {{ visitor.location }} • {{ visitor.timestamp|date:"d/m H:i" }}
+                            </p>
+                        </div>
+                        <span class="recent-item__tag">{{ visitor.age_label }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">Nenhum visitante ainda.</p>
+        {% endif %}
+    </article>
+
+    <article class="dashboard-card">
+        <header>
+            <h2 class="metric-card__title" style="font-size:1rem;">Distribuição por Idade</h2>
+            <p class="metric-card__meta">
+                {% if total_age_responses %}
+                    {{ total_age_responses }} resposta{{ total_age_responses|pluralize }}
+                {% else %}
+                    Aguardando respostas
+                {% endif %}
+            </p>
+        </header>
+        {% if total_age_responses %}
+            <ul class="age-grid">
+                {% for item in age_distribution %}
+                    <li class="age-row">
+                        <span class="age-row__label">{{ item.label }}</span>
+                        <div class="age-row__bar">
+                            <div class="age-row__fill" style="width: {{ item.percentage }}%;"></div>
+                        </div>
+                        <span class="age-row__value">{{ item.total }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">Nenhuma faixa etária informada por enquanto.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}
