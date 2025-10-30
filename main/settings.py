@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ciceroExperience_api.urls'
+ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ciceroExperience_api.wsgi.application'
+WSGI_APPLICATION = 'main.wsgi.application'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
