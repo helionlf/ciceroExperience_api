@@ -427,26 +427,6 @@
             <p class="metric-card__meta">aguardando visitantes</p>
         {% endif %}
     </article>
-
-    <article class="dashboard-card metric-card metric-card--age">
-        <div class="metric-card__icon" aria-hidden="true">❤️</div>
-        <p class="metric-card__title">Idade Média Estimada</p>
-        <p class="metric-card__value">
-            {% if average_age %}
-                {{ average_age }} <span>anos</span>
-            {% else %}
-                <span>Sem dados</span>
-            {% endif %}
-        </p>
-        <p class="metric-card__meta">baseado nas faixas etárias informadas</p>
-    </article>
-
-    <article class="dashboard-card metric-card metric-card--experience">
-        <div class="metric-card__icon" aria-hidden="true">🌿</div>
-        <p class="metric-card__title">Experiência Espiritual</p>
-        <p class="metric-card__value">{{ experience_summary.highlight }}</p>
-        <p class="metric-card__meta">{{ experience_summary.description }}</p>
-    </article>
 </section>
 
 <section class="insights-grid">
@@ -493,31 +473,6 @@
             </div>
         {% else %}
             <p class="empty-state">Nenhum registro no período selecionado.</p>
-        {% endif %}
-    </article>
-
-    <article class="dashboard-card">
-        <header>
-            <h2 class="metric-card__title" style="font-size:1rem;">Visitantes Recentes</h2>
-            <p class="metric-card__meta">Últimos cadastros realizados</p>
-        </header>
-        {% if recent_visitors %}
-            <ul class="recent-list">
-                {% for visitor in recent_visitors %}
-                    <li class="recent-item">
-                        <div class="recent-item__avatar">{{ visitor.initial }}</div>
-                        <div>
-                            <p class="recent-item__title">{{ visitor.city }}</p>
-                            <p class="recent-item__meta">
-                                {{ visitor.location }} • {{ visitor.timestamp|date:"d/m H:i" }}
-                            </p>
-                        </div>
-                        <span class="recent-item__tag">{{ visitor.age_label }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="empty-state">Nenhum visitante ainda.</p>
         {% endif %}
     </article>
 
