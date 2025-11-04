@@ -61,16 +61,21 @@ def _resolve_preset_range(range_key: Optional[str], today: date) -> Tuple[date, 
 
     return today, today, "Hoje", "today"
 
-
 def _parse_custom_range(since: Optional[str], until: Optional[str]) -> Optional[Tuple[date, date]]:
-    start = _parse_unix_timestamp(since)
-    end = _parse_unix_timestamp(until)
-
-    if not start or not end or start > end:
+    """Parse dates in YYYY-MM-DD format"""
+    if not since or not until:
         return None
-
+    
+    try:
+        start = datetime.strptime(since, "%Y-%m-%d").date()
+        end = datetime.strptime(until, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return None
+    
+    if start > end:
+        return None
+    
     return start, end
-
 
 def _parse_unix_timestamp(raw_value: Optional[str]) -> Optional[date]:
     if raw_value is None:

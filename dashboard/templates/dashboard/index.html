@@ -57,6 +57,36 @@
         box-shadow: 0 12px 28px rgba(26, 77, 255, 0.24);
     }
 
+    /* CSS DO DATE PICKER - MOVER PARA FORA DO MEDIA QUERY */
+    .date-picker-form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+    }
+
+    .date-input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .date-input-group label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .date-input-group input[type="date"] {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        background: var(--surface);
+        min-width: 140px;
+    }
+
     .date-indicator {
         display: inline-flex;
         align-items: center;
@@ -177,6 +207,61 @@
     .metric-card--experience {
         --accent: var(--accent-green);
         --accent-soft: rgba(34, 197, 94, 0.18);
+    }
+
+    /* NOVOS CARDS */
+    .metric-card--group {
+        --accent: var(--accent-purple);
+        --accent-soft: rgba(139, 92, 246, 0.16);
+    }
+
+    .metric-card--gender {
+        --accent: var(--accent-rose);
+        --accent-soft: rgba(244, 114, 182, 0.16);
+    }
+
+    .metric-card--race {
+        --accent: var(--accent-green);
+        --accent-soft: rgba(34, 197, 94, 0.18);
+    }
+
+    .distribution-mini {
+        margin-top: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .distribution-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.82rem;
+    }
+
+    .distribution-item__label {
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .distribution-item__value {
+        color: var(--text-strong);
+        font-weight: 600;
+    }
+
+    .distribution-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(15, 23, 42, 0.08);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 0.25rem;
+    }
+
+    .distribution-bar__fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: inherit;
     }
 
     .insights-grid {
@@ -378,6 +463,16 @@
             justify-self: flex-start;
             margin-top: 0.4rem;
         }
+
+        /* APENAS AS REGRAS ESPECÍFICAS PARA MOBILE FICAM AQUI */
+        .date-picker-form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .date-input-group {
+            width: 100%;
+        }
     }
 </style>
 {% endblock %}
@@ -390,9 +485,24 @@
     </div>
 
     <div class="dashboard-hero__filters">
-        {% for option in filters %}
-            <a class="filter-pill{% if option.active %} is-active{% endif %}" href="?range={{ option.key }}">{{ option.label }}</a>
-        {% endfor %}
+        <form method="GET" class="date-picker-form">
+            <div class="date-input-group">
+                <label for="start-date">Data Inicial:</label>
+                <input type="date" id="start-date" name="since" 
+                    value="{{ date_range.start|date:'Y-m-d' }}" 
+                    max="{{ date_range.end|date:'Y-m-d' }}">
+            </div>
+            <div class="date-input-group">
+                <label for="end-date">Data Final:</label>
+                <input type="date" id="end-date" name="until" 
+                    value="{{ date_range.end|date:'Y-m-d' }}"
+                    min="{{ date_range.start|date:'Y-m-d' }}"
+                    max="{% now 'Y-m-d' %}">
+            </div>
+            <button type="submit" class="filter-pill is-active">Aplicar</button>
+            <a href="?range=7d" class="filter-pill">Últimos 7 dias</a>
+            <a href="?range=today" class="filter-pill">Hoje</a>
+        </form>
     </div>
 
     {% with display=date_range.display %}
@@ -425,6 +535,127 @@
             <p class="metric-card__meta">em {{ states_count }} estado{{ states_count|pluralize }}</p>
         {% else %}
             <p class="metric-card__meta">aguardando visitantes</p>
+        {% endif %}
+    </article>
+
+    <article class="dashboard-card metric-card metric-card--age">
+        <div class="metric-card__icon" aria-hidden="true">🎂</div>
+        <p class="metric-card__title">Idade Média</p>
+        <p class="metric-card__value">
+            {% if average_age %}
+                {{ average_age }}<span>anos</span>
+            {% else %}
+                -
+            {% endif %}
+        </p>
+        <p class="metric-card__meta">baseado em {{ total_age_responses }} resposta{{ total_age_responses|pluralize }}</p>
+    </article>
+
+    <!-- NOVO CARD: Tipo de Visita -->
+    <article class="dashboard-card metric-card metric-card--group">
+        <div class="metric-card__icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
+        <p class="metric-card__title">Tipo de Visita</p>
+        <p class="metric-card__value">
+            {% if top_group_data %}
+                {{ top_group_data.total }}
+            {% else %}
+                0
+            {% endif %}
+        </p>
+        <p class="metric-card__meta">
+            {% if top_group_data %}
+                {{ top_group_data.label }}
+            {% else %}
+                Sem dados
+            {% endif %}
+        </p>
+        
+        {% if group_distribution and total_visitors > 0 %}
+        <div class="distribution-mini">
+            {% for item in group_distribution|slice:":3" %}
+            <div>
+                <div class="distribution-item">
+                    <span class="distribution-item__label">{{ item.label }}</span>
+                    <span class="distribution-item__value">{{ item.total }}</span>
+                </div>
+                <div class="distribution-bar">
+                    <div class="distribution-bar__fill" style="width: {% widthratio item.total total_visitors 100 %}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+
+    <!-- NOVO CARD: Gênero -->
+    <article class="dashboard-card metric-card metric-card--gender">
+        <div class="metric-card__icon" aria-hidden="true">⚧️</div>
+        <p class="metric-card__title">Gênero</p>
+        <p class="metric-card__value">
+            {% if top_gender_data %}
+                {{ top_gender_data.total }}
+            {% else %}
+                0
+            {% endif %}
+        </p>
+        <p class="metric-card__meta">
+            {% if top_gender_data %}
+                {{ top_gender_data.label }}
+            {% else %}
+                Sem dados
+            {% endif %}
+        </p>
+        
+        {% if gender_distribution and total_visitors > 0 %}
+        <div class="distribution-mini">
+            {% for item in gender_distribution|slice:":3" %}
+            <div>
+                <div class="distribution-item">
+                    <span class="distribution-item__label">{{ item.label }}</span>
+                    <span class="distribution-item__value">{{ item.total }}</span>
+                </div>
+                <div class="distribution-bar">
+                    <div class="distribution-bar__fill" style="width: {% widthratio item.total total_visitors 100 %}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+
+    <!-- NOVO CARD: Cor/Raça -->
+    <article class="dashboard-card metric-card metric-card--race">
+        <div class="metric-card__icon" aria-hidden="true">🎨</div>
+        <p class="metric-card__title">Cor/Raça</p>
+        <p class="metric-card__value">
+            {% if top_race_data %}
+                {{ top_race_data.total }}
+            {% else %}
+                0
+            {% endif %}
+        </p>
+        <p class="metric-card__meta">
+            {% if top_race_data %}
+                {{ top_race_data.label }}
+            {% else %}
+                Sem dados
+            {% endif %}
+        </p>
+        
+        {% if race_distribution and total_visitors > 0 %}
+        <div class="distribution-mini">
+            {% for item in race_distribution|slice:":3" %}
+            <div>
+                <div class="distribution-item">
+                    <span class="distribution-item__label">{{ item.label }}</span>
+                    <span class="distribution-item__value">{{ item.total }}</span>
+                </div>
+                <div class="distribution-bar">
+                    <div class="distribution-bar__fill" style="width: {% widthratio item.total total_visitors 100 %}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         {% endif %}
     </article>
 </section>
