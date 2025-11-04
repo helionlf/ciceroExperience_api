@@ -27,6 +27,88 @@ GROUP_SUMMARIES: Dict[str, Dict[str, str]] = {
     "default": {"highlight": "Única", "description": "Local sagrado"},
 }
 
+# MOVER AS FUNÇÕES AUXILIARES PARA CIMA, ANTES DA VIEW PRINCIPAL
+
+def _build_age_distribution(queryset) -> List[Dict[str, str]]:
+    counts = defaultdict(int)
+    for item in queryset.values("faixa_etaria").annotate(total=Count("id")):
+        counts[item["faixa_etaria"] or "nao_informado"] = item["total"]
+
+    distribution = []
+    for key, label in Visitantes.FAIXAS_ETARIAS:
+        distribution.append(
+            {
+                "key": key,
+                "label": label,
+                "total": counts.get(key, 0),
+            }
+        )
+    return distribution
+
+def _build_trend_series(date_range: DateRange, queryset) -> List[Dict[str, object]]:
+    counts_map = {
+        item["data"]: item["total"]
+        for item in queryset.values("data").annotate(total=Count("id")).order_by("data")
+    }
+
+    series = []
+    for offset in range(date_range.days):
+        current_date = date_range.start + timedelta(days=offset)
+        total = counts_map.get(current_date, 0)
+        series.append(
+            {
+                "date": current_date,
+                "label": current_date.strftime("%d/%m"),
+                "total": total,
+            }
+        )
+    return series
+
+def _build_group_distribution(queryset) -> List[Dict[str, str]]:
+    counts = defaultdict(int)
+    for item in queryset.values("grupo").annotate(total=Count("id")):
+        counts[item["grupo"] or "desconhecido"] = item["total"]
+    
+    distribution = []
+    for key, label in Visitantes.OPCOES_GRUPO:
+        distribution.append({
+            "key": key,
+            "label": label,
+            "total": counts.get(key, 0),
+        })
+    
+    return sorted(distribution, key=lambda x: x["total"], reverse=True)
+
+def _build_gender_distribution(queryset) -> List[Dict[str, str]]:
+    counts = defaultdict(int)
+    for item in queryset.values("genero").annotate(total=Count("id")):
+        counts[item["genero"] or "nao_informado"] = item["total"]
+    
+    distribution = []
+    for key, label in Visitantes.OPCOES_GENERO:
+        distribution.append({
+            "key": key,
+            "label": label,
+            "total": counts.get(key, 0),
+        })
+    
+    return sorted(distribution, key=lambda x: x["total"], reverse=True)
+
+def _build_race_distribution(queryset) -> List[Dict[str, str]]:
+    counts = defaultdict(int)
+    for item in queryset.values("cor_raca").annotate(total=Count("id")):
+        counts[item["cor_raca"] or "nao_informado"] = item["total"]
+    
+    distribution = []
+    for key, label in Visitantes.OPCOES_COR_RACA:
+        distribution.append({
+            "key": key,
+            "label": label,
+            "total": counts.get(key, 0),
+        })
+    
+    return sorted(distribution, key=lambda x: x["total"], reverse=True)
+
 
 @login_required
 def index(request):
@@ -63,19 +145,17 @@ def index(request):
     age_values = [AGE_MIDPOINTS[choice] for choice in age_queryset if choice in AGE_MIDPOINTS]
     average_age = round(sum(age_values) / len(age_values)) if age_values else None
 
-    group_counts = (
-        filtered.exclude(grupo__isnull=True)
-        .exclude(grupo__exact="")
-        .values("grupo")
-        .annotate(total=Count("id"))
-        .order_by("-total")
-    )
-    top_group = group_counts.first()
-    experience_summary = (
-        GROUP_SUMMARIES.get(top_group["grupo"], GROUP_SUMMARIES["default"])
-        if top_group
-        else GROUP_SUMMARIES["default"]
-    )
+    # Nova métrica: Distribuição de Grupo
+    group_distribution = _build_group_distribution(filtered)
+    top_group_data = group_distribution[0] if group_distribution else None
+
+    # Nova métrica: Distribuição de Gênero
+    gender_distribution = _build_gender_distribution(filtered)
+    top_gender_data = gender_distribution[0] if gender_distribution else None
+
+    # Nova métrica: Distribuição de Cor/Raça
+    race_distribution = _build_race_distribution(filtered)
+    top_race_data = race_distribution[0] if race_distribution else None
 
     city_rank = list(
         filtered.exclude(cidade__isnull=True)
@@ -123,19 +203,18 @@ def index(request):
             }
         )
 
-    filter_options = [
-        {"key": key, "label": label, "active": key == date_range.active_key}
-        for key, label in FILTER_OPTIONS
-    ]
-
     context = {
         "date_range": date_range,
-        "filters": filter_options,
         "total_visitors": total_visitors,
         "cities_count": cities_count,
         "states_count": states_count,
         "average_age": average_age,
-        "experience_summary": experience_summary,
+        "top_group_data": top_group_data,
+        "top_gender_data": top_gender_data,
+        "top_race_data": top_race_data,
+        "group_distribution": group_distribution,
+        "gender_distribution": gender_distribution,
+        "race_distribution": race_distribution,
         "city_rank": city_rank,
         "age_distribution": age_distribution,
         "trend_series": trend_series,
@@ -145,40 +224,3 @@ def index(request):
     }
 
     return render(request, "dashboard/index.html", context)
-
-
-def _build_age_distribution(queryset) -> List[Dict[str, str]]:
-    counts = defaultdict(int)
-    for item in queryset.values("faixa_etaria").annotate(total=Count("id")):
-        counts[item["faixa_etaria"] or "nao_informado"] = item["total"]
-
-    distribution = []
-    for key, label in Visitantes.FAIXAS_ETARIAS:
-        distribution.append(
-            {
-                "key": key,
-                "label": label,
-                "total": counts.get(key, 0),
-            }
-        )
-    return distribution
-
-
-def _build_trend_series(date_range: DateRange, queryset) -> List[Dict[str, object]]:
-    counts_map = {
-        item["data"]: item["total"]
-        for item in queryset.values("data").annotate(total=Count("id")).order_by("data")
-    }
-
-    series = []
-    for offset in range(date_range.days):
-        current_date = date_range.start + timedelta(days=offset)
-        total = counts_map.get(current_date, 0)
-        series.append(
-            {
-                "date": current_date,
-                "label": current_date.strftime("%d/%m"),
-                "total": total,
-            }
-        )
-    return series
