@@ -1,8 +1,9 @@
 
 # Arquivos DLL compilados/otimizados em bytes
-__pycache__ /
-* .py [ bacalhau ]
-* $py.class
+main / __pycache__ /
+dashboard / __pycache__ /
+cicero_experience / __pycache__ /
+
 
 # Extensões C
 * .então
