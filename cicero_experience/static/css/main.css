@@ -1,15 +1,15 @@
 :root {
-  --bg-top: #020617;
-  --bg-mid: #0f172a;
-  --bg-bottom: #1e293b;
-  --accent: #38bdf8;
-  --accent-strong: #0ea5e9;
-  --surface: rgba(15, 23, 42, 0.78);
-  --surface-strong: rgba(30, 41, 59, 0.92);
-  --border-glass: rgba(148, 163, 184, 0.25);
-  --text-primary: #e2e8f0;
-  --text-muted: #94a3b8;
-  --shadow-lg: 0 30px 60px rgba(2, 6, 23, 0.6);
+  --bg-top: #170202;
+  --bg-mid: #2a0f0f;
+  --bg-bottom: #3b1e1e;
+  --accent: #f83838;
+  --accent-strong: #e90e0e;
+  --surface: rgba(149, 30, 46, 0.78);
+  --surface-strong: rgba(149, 30, 46, 0.92);
+  --border-glass: rgba(184, 148, 148, 0.25);
+  --text-primary: #f0d9dc;
+  --text-muted: #d6b9bf;
+  --shadow-lg: 0 30px 60px  rgba(194, 30, 46, 0.45);
   --radius-xl: 1.5rem;
 }
 
@@ -25,7 +25,7 @@ body {
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text-primary);
   background:
-    radial-gradient(110% 110% at 80% 0%, rgba(14, 165, 233, 0.25) 0%, rgba(2, 6, 23, 0.9) 45%, rgba(2, 6, 23, 1) 100%),
+    radial-gradient(110% 110% at 80% 0%, rgba(194, 30, 46, 0.55) 0%, rgba(255, 255, 255, 0.9) 45%, rgb(255, 255, 255) 100%),
     linear-gradient(165deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bottom) 100%);
   display: flex;
   flex-direction: column;
@@ -37,8 +37,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(40rem 40rem at 85% 10%, rgba(56, 189, 248, 0.25), transparent),
-    radial-gradient(32rem 32rem at 15% 15%, rgba(45, 212, 191, 0.1), transparent);
+  background: radial-gradient(40rem 40rem at 85% 10%, rgba(254, 255, 255, 0.25), transparent),
+    radial-gradient(32rem 32rem at 15% 15%, rgba(194, 30, 46, 0.1), transparent);
   pointer-events: none;
   z-index: -1;
 }
@@ -57,15 +57,16 @@ body::after {
 }
 
 .glass-nav {
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(194, 30, 46, 0.55);
   border: 1px solid var(--border-glass);
   backdrop-filter: blur(18px);
   border-radius: 999px;
   padding: 0.75rem 1.5rem;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+  box-shadow: 0 20px 45px rgba(194, 30, 46, 0.45);
   position: relative;
 }
 
+/*tirei do projeto original*/
 .brand-badge {
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -75,6 +76,7 @@ body::after {
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(14, 165, 233, 0.05));
   color: #ffffff;
 }
+/*tirei do projeto original*/
 
 .navbar .nav-link {
   color: var(--text-muted);
@@ -131,12 +133,12 @@ body::after {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--accent);
+  color: var(--surface);
   font-weight: 600;
   padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  background: rgba(14, 116, 144, 0.1);
+  border: 1px solid rgba(194, 30, 46, 0.35);
+  background: rgba(194, 30, 46, 0.1);
 }
 
 .page-title {
@@ -144,13 +146,19 @@ body::after {
   font-weight: 700;
   line-height: 1.15;
   margin: 1.25rem 0 1rem;
-  color: #f8fafc;
+  color: #c21e2e
 }
 
 .hero-text {
   max-width: 36rem;
   font-size: 1.1rem;
   color: var(--text-muted);
+  line-height: 1.6;
+}
+.hero-text2 {
+  max-width: 36rem;
+  font-size: 1.1rem;
+  color: var(--surface);
   line-height: 1.6;
 }
 
@@ -165,8 +173,8 @@ body::after {
   align-items: center;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  background: rgba(56, 189, 248, 0.15);
-  color: var(--accent);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -221,8 +229,8 @@ body::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(60% 60% at 10% 10%, rgba(56, 189, 248, 0.16), transparent),
-    radial-gradient(60% 60% at 90% 20%, rgba(14, 165, 233, 0.1), transparent);
+  background: radial-gradient(60% 60% at 10% 10%, rgba(194,30,46, 0.16), transparent),
+    radial-gradient(60% 60% at 90% 20%, rgba(194,30,46, 0.1), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -230,8 +238,8 @@ body::after {
 
 .glass-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 40px 80px rgba(15, 23, 42, 0.55);
+  border-color: rgba(194,30,46, 0.35);
+  box-shadow: 0 40px 80px rgba(194,30,46, 0.55);
 }
 
 .glass-card:hover::before {
@@ -270,7 +278,7 @@ body::after {
   height: 10px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 15px rgba(248, 56, 56, 0.6);
 }
 
 .supporting-note__text {
@@ -284,25 +292,25 @@ body::after {
 }
 
 .modern-control {
-  background: rgba(15, 23, 42, 0.65);
-  color: #f8fafc;
+  background: rgba(42, 15, 15, 0.65);
+  color: #fcf8f8;
   border-radius: 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid rgba(184, 148, 148, 0.35);
   padding: 0.85rem 1rem;
-  box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.05);
+  box-shadow: inset 0 1px 0 rgba(252, 248, 248, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .modern-control:focus {
-  border-color: rgba(56, 189, 248, 0.7);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
-  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(248, 56, 56, 0.7);
+  box-shadow: 0 0 0 3px rgba(248, 56, 56, 0.18);
+  background: rgba(42, 15, 15, 0.9);
   color: #ffffff;
 }
 
 .modern-control option {
-  color: #0f172a;
-  background: #f8fafc;
+  color: #2a0f0f;
+  background: #fcf8f8;
 }
 
 .btn {
@@ -316,14 +324,14 @@ body::after {
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-strong), var(--accent));
   border: 0;
-  box-shadow: 0 15px 35px rgba(14, 165, 233, 0.35);
+  box-shadow: 0 15px 35px rgba(233, 14, 14, 0.35);
 }
 
 .btn-accent {
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.85), rgba(16, 185, 129, 0.95));
   border: 0;
   box-shadow: 0 18px 38px rgba(16, 185, 129, 0.35);
-  color: #031318;
+  color: #031806;
 }
 
 .btn-primary:hover,
@@ -333,7 +341,7 @@ body::after {
 
 .btn-primary:focus-visible,
 .btn-accent:focus-visible {
-  outline: 3px solid rgba(148, 163, 184, 0.35);
+  outline: 3px solid rgba(184, 148, 148, 0.35);
   outline-offset: 2px;
 }
 
@@ -345,7 +353,7 @@ body::after {
   border-radius: 1rem;
   border: 1px solid rgba(248, 113, 113, 0.35);
   background: rgba(248, 113, 113, 0.12);
-  color: #fecdd3;
+  color: var(--accent-strong);
   backdrop-filter: blur(22px);
   padding: 1.1rem 1.4rem;
   box-shadow: 0 20px 40px rgba(127, 29, 29, 0.35);
