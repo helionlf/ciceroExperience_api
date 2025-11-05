@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-fi0oe8w3@g8gxg-$l#21r2h2r#uf%gyt3!d(j(em6nfjn_f!k#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,6 +83,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'cicero_experience', 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_URL = '/admin/login/'       # quando não estiver logado, vai para o login do admin
 LOGIN_REDIRECT_URL = '/dashboard/'
