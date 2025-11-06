@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from collections import defaultdict
 from datetime import timedelta
 from typing import Dict, List
@@ -175,6 +176,16 @@ def index(request):
 
     trend_series = _build_trend_series(date_range, filtered)
     trend_peak = max((point["total"] for point in trend_series), default=0)
+    trend_ticks: List[int] = [0]
+    if trend_peak:
+        tick_step = max(1, math.ceil(trend_peak / 4))
+        current = tick_step
+        while current < trend_peak:
+            trend_ticks.append(current)
+            current += tick_step
+        if trend_ticks[-1] != trend_peak:
+            trend_ticks.append(trend_peak)
+    trend_ticks = sorted(set(trend_ticks))
     for point in trend_series:
         if trend_peak:
             point["height"] = max(6, int(point["total"] / trend_peak * 100))
@@ -219,6 +230,7 @@ def index(request):
         "age_distribution": age_distribution,
         "trend_series": trend_series,
         "trend_peak": trend_peak,
+        "trend_ticks": trend_ticks,
         "total_age_responses": total_age_responses,
         "recent_visitors": recent_visitors,
     }
