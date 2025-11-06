@@ -1,9 +1,10 @@
 
 # Arquivos DLL compilados/otimizados em bytes
-main / __pycache__ /
-dashboard / __pycache__ /
-cicero_experience / __pycache__ /
-
+__pycache__/
+*/__pycache__/
+main/__pycache__/
+dashboard/__pycache__/
+cicero_experience/__pycache__/
 
 # Extensões C
 * .então
