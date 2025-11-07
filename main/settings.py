@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import dj_database_url
 import os
 from pathlib import Path
 from urllib.parse import urlparse
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,21 +95,21 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL")
+
 if DATABASE_URL:
-    url = urlparse(DATABASE_URL)
+    # Para produção (Render + Supabase)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': url.path[1:],       # remove a barra inicial
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        }
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True  # Importante para Supabase
+        )
     }
 else:
-        # Fallback para SQLite em desenvolvimento
+    # Apenas para desenvolvimento local
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
