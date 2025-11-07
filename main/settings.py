@@ -30,6 +30,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Hosts específicos para dev
 
+# Adiciona automaticamente o host do Render
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Para desenvolvimento, você pode também adicionar wildcard:
+if DEBUG:
+    ALLOWED_HOSTS.append('.onrender.com')  # Permite qualquer subdomínio do Render
+
 CSC_API_KEY = os.getenv("CSC_API_KEY") 
 
 # Quick-start development settings - unsuitable for production
