@@ -5,23 +5,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-500: #1a4dff;
-            --primary-600: #103ace;
-            --primary-soft: rgba(26, 77, 255, 0.12);
-            --accent-rose: #f472b6;
-            --accent-amber: #f59e0b;
-            --accent-green: #22c55e;
-            --accent-blue: #38bdf8;
-            --accent-purple: #8b5cf6;
-            --text-strong: #0f172a;
-            --text-muted: #475569;
+            --primary-500: #c5161d;
+            --primary-600: #a40f15;
+            --primary-soft: rgba(197, 22, 29, 0.12);
+            --accent-rose: #f05b6d;
+            --accent-amber: #ffb347;
+            --accent-green: #2bb673;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --text-strong: #1f1414;
+            --text-muted: #6b4c4c;
             --surface: #ffffff;
-            --surface-muted: rgba(255, 255, 255, 0.6);
-            --border-subtle: #e2e8f0;
-            --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
-            --font-sans: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            --surface-muted: #fff7f5;
+            --border-subtle: rgba(197, 22, 29, 0.15);
+            --shadow-soft: 0 25px 55px rgba(197, 22, 29, 0.12);
+            --bg-top: #ffffff;
+            --bg-mid: #fffaf8;
+            --bg-bottom: #ffeceb;
+            --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
         * {
@@ -32,10 +38,22 @@
             margin: 0;
             font-family: var(--font-sans);
             color: var(--text-strong);
-            background: radial-gradient(circle at 0% -20%, rgba(26, 77, 255, 0.14), transparent 55%),
-                        radial-gradient(circle at 100% 0%, rgba(139, 92, 246, 0.15), transparent 60%),
-                        #f1f5f9;
+            background:
+                radial-gradient(110% 80% at 85% 0%, rgba(197, 22, 29, 0.12), transparent 55%),
+                radial-gradient(85% 65% at 5% 15%, rgba(255, 214, 214, 0.7), transparent 65%),
+                linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bottom) 100%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(60% 60% at 60% -10%, rgba(255, 255, 255, 0.6), transparent 65%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         a {
@@ -48,6 +66,8 @@
             padding: clamp(2rem, 5vw, 3.75rem);
             display: flex;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .dashboard-container {
@@ -62,12 +82,12 @@
             border-radius: 22px;
             padding: clamp(1.5rem, 2vw, 2rem);
             box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(148, 163, 184, 0.16);
+            border: 1px solid var(--border-subtle);
         }
 
         .dashboard-card--ghost {
-            background: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(16px);
+            background: var(--surface-muted);
+            border: 1px solid rgba(197, 22, 29, 0.08);
         }
 
         .metric-grid {

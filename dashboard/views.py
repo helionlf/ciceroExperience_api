@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import math
 from collections import defaultdict
 from datetime import timedelta
@@ -7,6 +8,7 @@ from typing import Dict, List
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from cicero_experience.models import Visitantes
@@ -214,6 +216,12 @@ def index(request):
             }
         )
 
+    filter_params = {
+        "range": request.GET.get("range") or "",
+        "since": request.GET.get("since") or "",
+        "until": request.GET.get("until") or "",
+    }
+
     context = {
         "date_range": date_range,
         "total_visitors": total_visitors,
@@ -233,6 +241,60 @@ def index(request):
         "trend_ticks": trend_ticks,
         "total_age_responses": total_age_responses,
         "recent_visitors": recent_visitors,
+        "filter_options": FILTER_OPTIONS,
+        "filter_params": filter_params,
     }
 
     return render(request, "dashboard/index.html", context)
+
+
+@login_required
+def export_dashboard_csv(request):
+    date_range = resolve_date_range(
+        range_key=request.GET.get("range"),
+        since=request.GET.get("since"),
+        until=request.GET.get("until"),
+    )
+
+    queryset = (
+        Visitantes.objects.filter(data__range=(date_range.start, date_range.end))
+        .order_by("data", "data_chekin")
+    )
+
+    filename = f"dashboard-visitas-{date_range.start:%Y%m%d}-{date_range.end:%Y%m%d}.csv"
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+
+    writer = csv.writer(response)
+    writer.writerow(
+        [
+            "Data",
+            "Data/Hora check-in",
+            "Cidade",
+            "Estado",
+            "Pais",
+            "Faixa etaria",
+            "Genero",
+            "Grupo",
+            "Cor/Raca",
+            "Fingerprint",
+        ]
+    )
+
+    for visitante in queryset:
+        writer.writerow(
+            [
+                visitante.data.isoformat() if visitante.data else "",
+                visitante.data_chekin.strftime("%Y-%m-%d %H:%M:%S") if visitante.data_chekin else "",
+                (visitante.cidade or "").strip(),
+                (visitante.estado or "").strip(),
+                (visitante.pais or "").strip(),
+                visitante.get_faixa_etaria_display() or "",
+                visitante.get_genero_display() or "",
+                visitante.get_grupo_display() or "",
+                visitante.get_cor_raca_display() or "",
+                visitante.fingerprint,
+            ]
+        )
+
+    return response
