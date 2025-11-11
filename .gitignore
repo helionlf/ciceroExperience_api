@@ -85,6 +85,8 @@ agenda do celerybeat
 # dotenv
 .env
 
+
+
 # virtualenv
 .venv
 venv /
