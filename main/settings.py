@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import dj_database_url
 import os
 from pathlib import Path
 from urllib.parse import urlparse
@@ -35,9 +36,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-key-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env_bool("DEBUG", default=True)
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Hosts específicos para dev
+
+# Adiciona automaticamente o host do Render
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Para desenvolvimento, você pode também adicionar wildcard:
+if DEBUG:
+    ALLOWED_HOSTS.append('.onrender.com')  # Permite qualquer subdomínio do Render
 
 CSC_API_KEY = os.getenv("CSC_API_KEY") 
 
@@ -59,6 +69,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,21 +114,21 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Database Configuration
 DATABASE_URL = os.getenv("DATABASE_URL")
+
 if DATABASE_URL:
-    url = urlparse(DATABASE_URL)
+    # Para produção (Render + Supabase)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': url.path[1:],       # remove a barra inicial
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        }
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True  # Importante para Supabase
+        )
     }
 else:
-        # Fallback para SQLite em desenvolvimento
+    # Apenas para desenvolvimento local
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
