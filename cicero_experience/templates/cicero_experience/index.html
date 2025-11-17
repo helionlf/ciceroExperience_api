@@ -22,11 +22,14 @@
 </section>
 
 <section class="forms-section container">
-    {% if error_message %}
-    <div class="alert alert-glass alert-danger" role="alert">
-        {{ error_message }}
-    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
     {% endif %}
+
     <div class="forms-grid">
         <article class="glass-card action-card">
             <div class="card-body">
@@ -104,7 +107,7 @@
                     <input type="hidden" name="action" value="form">
                     <input type="hidden" name="fingerprint" id="fingerprint-form">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-accent btn-lg w-100">Salvar no banco</button>
+                        <button type="submit" class="btn btn-accent btn-lg w-100">Enviar</button>
                     </div>
                 </form>
             </div>

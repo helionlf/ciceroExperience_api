@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.db import DatabaseError
 from django.utils import timezone
 from .models import Visitantes
+from django.contrib import messages
 from django.conf import settings
 
 
 def index(request):
-    error_message = None
     faixas_etarias_choices = Visitantes.FAIXAS_ETARIAS
     grupo_ = Visitantes.OPCOES_GRUPO
     generos = Visitantes.OPCOES_GENERO
@@ -19,7 +19,7 @@ def index(request):
         fingerprint = request.POST.get("fingerprint")
 
         if not fingerprint:
-            error_message = "Não foi possível identificar o visitante."
+            messages.error(request, "Não foi possível identificar o visitante.")
         else:
             try:
                 visitante_existente = Visitantes.objects.filter(
@@ -29,7 +29,7 @@ def index(request):
 
                 if action == "checkin":
                     if visitante_existente:
-                        error_message = "Você já fez o check-in hoje."
+                        messages.error(request, "Você já fez o check-in hoje.")
                     else:
                         Visitantes.objects.create(
                             fingerprint=fingerprint,
@@ -41,6 +41,7 @@ def index(request):
                             genero="nao_informado",
                             cor_raca="nao_informado"
                         )
+                        messages.success(request, "Seu Check-in foi realizado com sucesso!")
                         return redirect("index")
                     
                 elif action == "form":
@@ -62,6 +63,9 @@ def index(request):
                         visitante_existente.genero = genero
                         visitante_existente.cor_raca = cor_raca
                         visitante_existente.save()
+
+                        messages.success(request, "Dados atualizados com sucesso!")
+                        return redirect("index")
                     else:
                         Visitantes.objects.create(
                             fingerprint=fingerprint,
@@ -73,15 +77,16 @@ def index(request):
                             genero=genero,
                             cor_raca=cor_raca 
                         )
+                        
+                        messages.success(request, "Seus dados foram enviados com sucesso!")
                         return redirect("index")
                 
             except DatabaseError:
-                error_message = "Ocorreu um erro ao salvar no banco. Tente novamente."
+                messages.error(request, "Ocorreu um erro ao salvar no banco. Tente novamente.")
 
     return render(request, "cicero_experience/index.html", {
         "faixas_etarias_choices": faixas_etarias_choices,
         "grupo_": grupo_,
         "generos": generos,
         "cor_racas": cor_racas,
-        "error_message": error_message,
     })
