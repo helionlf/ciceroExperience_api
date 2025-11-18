@@ -4,22 +4,23 @@
 {% block title %}Check-in | Cicero Experience{% endblock %}
 
 {% block content %}
-<section class="page-hero container">
-    <div class="row align-items-center gy-4">
+
+<section class="page-hero">
+    <div class="container">
+
+      <div class="row align-items-center gy-4" style="min-height: 100vh;">
         <div class="col-lg-7">
-            <span class="hero-eyebrow">Experiencia ao vivo</span>
-            <h1 class="page-title">Organize check-ins com uma interface moderna</h1>
-            <p class="hero-text">Acompanhe visitantes, capture dados essenciais e mantenha a equipe alinhada com o mesmo fluxo.</p>
+          <span class="hero-eyebrow">Cicero Experience</span>
+          <h1 class="page-title">Check-in</h1>
+          <p class="hero-text">
+            Bem-vindo à sua experiência exclusiva. Faça seu check-in com conforto, 
+            estilo e toda a atenção que você merece. O seu momento começa agora.
+          </p>
+          <a href="#" class="btn btn-outline-light btn-lg mt-3 btn-red">Fazer Check-in</a>
         </div>
-        <div class="col-lg-5">
-            <div class="metric-card glass-card">
-                <div class="metric-card__badge">Status</div>
-                <h2 class="metric-card__value">Pronto para receber</h2>
-                <p class="metric-card__text">Conectado ao banco de dados configurado via <code>DATABASE_URL</code>.</p>
-            </div>
-        </div>
+      </div>
     </div>
-</section>
+  </section>
 
 <section class="forms-section container">
     {% if messages %}
