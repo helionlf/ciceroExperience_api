@@ -6,45 +6,62 @@
 {% block content %}
 <section class="page-hero container">
     <div class="row align-items-center gy-4">
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <span class="hero-eyebrow">Experiencia ao vivo</span>
             <h1 class="page-title">Organize check-ins com uma interface moderna</h1>
-            <p class="hero-text">Acompanhe visitantes, capture dados essenciais e mantenha a equipe alinhada com o mesmo fluxo.</p>
+            <p class="hero-text">Acompanhe visitantes, capture dados essenciais e mantenha a equipe alinhada enquanto apresenta momentos reais do Horto Municipal.</p>
         </div>
-        <div class="col-lg-5">
-            <div class="metric-card glass-card">
-                <div class="metric-card__badge">Status</div>
-                <h2 class="metric-card__value">Pronto para receber</h2>
-                <p class="metric-card__text">Conectado ao banco de dados configurado via <code>DATABASE_URL</code>.</p>
+        <div class="col-lg-6">
+            <div class="hero-slider glass-card" data-slider="hero">
+                <div class="hero-slider__viewport">
+                    <div class="hero-slider__track">
+                        <div class="hero-slide" role="img" aria-label="Visitantes chegando ao horto" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
+                            <div class="hero-slide__caption">
+                                <span>Recepcao</span>
+                                <strong>Visitantes chegando ao horto</strong>
+                            </div>
+                        </div>
+                        <div class="hero-slide" role="img" aria-label="Equipe orientando os visitantes" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
+                            <div class="hero-slide__caption">
+                                <span>Orientacao</span>
+                                <strong>Equipe guiando os fluxos</strong>
+                            </div>
+                        </div>
+                        <div class="hero-slide" role="img" aria-label="Area principal do evento com movimento" style="--slide-image: url('{% static 'img/slider/foto-3.jpg' %}');">
+                            <div class="hero-slide__caption">
+                                <span>Experiencia</span>
+                                <strong>Espacos pulsando com visitantes</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Foto anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima foto">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="hero-slider__dots">
+                    <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a foto 1" aria-pressed="true" data-slider-dot="0"></button>
+                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 2" aria-pressed="false" data-slider-dot="1"></button>
+                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 3" aria-pressed="false" data-slider-dot="2"></button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="forms-section container">
+<section class="forms-section container" id="registro-form">
     {% if error_message %}
     <div class="alert alert-glass alert-danger" role="alert">
         {{ error_message }}
     </div>
     {% endif %}
     <div class="forms-grid">
-        <article class="glass-card action-card">
-            <div class="card-body">
-                <h2 class="card-title">Check-in instantaneo</h2>
-                <p class="card-text">Registre a presenca de visitantes recorrentes com um clique.</p>
-                <form action="{% url 'index' %}" method="post" class="d-grid gap-3">
-                    {% csrf_token %}
-                    <input type="hidden" name="fingerprint" id="fingerprint-checkin">
-                    <input type="hidden" name="action" value="checkin">
-                    <button type="submit" class="btn btn-primary btn-lg">Fazer check-in</button>
-                </form>
-                <div class="supporting-note">
-                    <span class="icon-dot"></span>
-                    <span class="supporting-note__text">Compara o visitante pelo fingerprint gerado automaticamente.</span>
-                </div>
-            </div>
-        </article>
-
         <article class="glass-card form-card">
             <div class="card-body">
                 <h2 class="card-title">Novo registro</h2>
@@ -109,6 +126,23 @@
                 </form>
             </div>
         </article>
+
+        <article class="glass-card action-card">
+            <div class="card-body">
+                <h2 class="card-title">Check-in instantaneo</h2>
+                <p class="card-text">Registre a presenca de visitantes recorrentes com um clique.</p>
+                <form action="{% url 'index' %}" method="post" class="d-grid gap-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="fingerprint" id="fingerprint-checkin">
+                    <input type="hidden" name="action" value="checkin">
+                    <button type="submit" class="btn btn-primary btn-lg">Fazer check-in</button>
+                </form>
+                <div class="supporting-note">
+                    <span class="icon-dot"></span>
+                    <span class="supporting-note__text">Compara o visitante pelo fingerprint gerado automaticamente.</span>
+                </div>
+            </div>
+        </article>
     </div>
 </section>
 
@@ -128,6 +162,76 @@
         document.querySelectorAll('input[name="fingerprint"]').forEach(input => {
             input.value = fp;
         });
+    })();
+</script>
+
+<script>
+    (function () {
+        const slider = document.querySelector('[data-slider="hero"]');
+        if (!slider) {
+            return;
+        }
+
+        const track = slider.querySelector('.hero-slider__track');
+        const slides = Array.from(track.children);
+        if (!slides.length) {
+            return;
+        }
+
+        const prevTrigger = slider.querySelector('[data-slider-action="prev"]');
+        const nextTrigger = slider.querySelector('[data-slider-action="next"]');
+        const dots = Array.from(slider.querySelectorAll('[data-slider-dot]'));
+
+        let currentIndex = 0;
+        let autoplayId = null;
+
+        const goTo = (index) => {
+            currentIndex = (index + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, dotIndex) => {
+                const isActive = dotIndex === currentIndex;
+                dot.classList.toggle('is-active', isActive);
+                dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        };
+
+        const nextSlide = () => goTo(currentIndex + 1);
+        const prevSlide = () => goTo(currentIndex - 1);
+
+        const stopAutoplay = () => {
+            if (autoplayId) {
+                window.clearInterval(autoplayId);
+                autoplayId = null;
+            }
+        };
+
+        const restartAutoplay = () => {
+            stopAutoplay();
+            autoplayId = window.setInterval(nextSlide, 6000);
+        };
+
+        prevTrigger?.addEventListener('click', () => {
+            prevSlide();
+            restartAutoplay();
+        });
+
+        nextTrigger?.addEventListener('click', () => {
+            nextSlide();
+            restartAutoplay();
+        });
+
+        dots.forEach((dot, dotIndex) => {
+            dot.addEventListener('click', () => {
+                goTo(dotIndex);
+                restartAutoplay();
+            });
+        });
+
+        slider.addEventListener('pointerenter', stopAutoplay);
+        slider.addEventListener('pointerleave', restartAutoplay);
+
+        goTo(0);
+        restartAutoplay();
     })();
 </script>
 
