@@ -218,8 +218,8 @@ def index(request):
 
     filter_params = {
         "range": request.GET.get("range") or "",
-        "since": request.GET.get("since") or "",
-        "until": request.GET.get("until") or "",
+        "since": request.GET.get("since") or date_range.start.strftime("%Y-%m-%d"),
+        "until": request.GET.get("until") or date_range.end.strftime("%Y-%m-%d"),
     }
 
     context = {

@@ -741,8 +741,7 @@
             <div class="date-input-group">
                 <label for="start-date">Data inicial:</label>
                 <input type="date" id="start-date" name="since"
-                    value="{{ date_range.start|date:'Y-m-d' }}"
-                    max="{{ date_range.end|date:'Y-m-d' }}">
+                    value="{{ date_range.start|date:'Y-m-d' }}">
             </div>
             <div class="date-input-group">
                 <label for="end-date">Data final:</label>
@@ -1021,5 +1020,20 @@
         {% endif %}
     </article>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+        
+        startDateInput.addEventListener('change', function() {
+            endDateInput.min = this.value;
+        });
+        
+        endDateInput.addEventListener('change', function() {
+            startDateInput.max = this.value;
+        });
+    });
+</script>
 {% endblock %}
 

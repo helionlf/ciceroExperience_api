@@ -72,7 +72,11 @@ def _parse_custom_range(since: Optional[str], until: Optional[str]) -> Optional[
     except (ValueError, TypeError):
         return None
     
+    today = timezone.localdate()
+
     if start > end:
+        return None
+    if start > today or end > today:
         return None
     
     return start, end
