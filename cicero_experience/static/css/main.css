@@ -123,6 +123,32 @@ body::after {
   gap: 4rem;
 }
 
+.page-hero {
+  padding: 5rem 0 3rem;
+}
+
+.hero-centered {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.hero-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--surface);
+  font-weight: 700;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(194, 30, 46, 0.35);
+  background: rgba(194, 30, 46, 0.08);
+}
+
 
 .hero-eyebrow {
   display: inline-flex;
@@ -140,14 +166,14 @@ body::after {
 }
 .page-title {
   font-family: "Great Vibes", cursive;
-  font-size: clamp(5.4rem, 5vw, 4.3rem);
-  font-weight: 400; /* manuscritas quase nunca usam 700 */
-  line-height: 1.15;
-  margin: 1.25rem 0 1rem;
+  font-size: clamp(2.8rem, 4vw, 3.6rem);
+  font-weight: 500; /* manuscritas quase nunca usam 700 */
+  line-height: 1.2;
+  margin: 0.35rem 0 0.5rem;
   color: #c21e2e;
 }
 .hero-text {
-  max-width: 36rem;
+  max-width: 42rem;
   font-size: 1.1rem;
   color: var(--surface);
   line-height: 1.6;
@@ -157,6 +183,33 @@ body::after {
   font-size: 1.1rem;
   color: var(--surface);
   line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  box-shadow: 0 18px 30px rgba(194, 30, 46, 0.3);
+}
+
+.cta-secondary {
+  padding: 0.95rem 1.2rem;
+  border-radius: 999px;
+  border-width: 1px;
+}
+
+.cta-checkin-form {
+  display: inline-flex;
+  margin: 0;
 }
 
 .hero-slider {
@@ -565,4 +618,3 @@ body::after {
     padding: 0.75rem 1.1rem;
   }
 }
-

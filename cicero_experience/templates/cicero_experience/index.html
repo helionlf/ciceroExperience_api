@@ -5,11 +5,22 @@
 
 {% block content %}
 <section class="page-hero container">
-    <div class="row align-items-center gy-4">
+    <div class="row align-items-center gy-5">
         <div class="col-lg-6">
-            <h1 class="page-title">Ola! Estamos realizando o projeto Cicero Experience</h1>
-            <p class="hero-text">Queremos conhecer melhor o perfil das pessoas que visitam o Horto do Padre Cicero.</p>
-            <p class="hero-text2">Sua participacao e muito importante para compreendermos como acontece o fluxo e ter informacoes que ajudem a pensar em formas de melhorar o acolhimento. Agradecemos desde ja pela colaboracao!</p>
+            <div class="hero-centered text-lg-start">
+                <p class="hero-subtitle">Ajude a preservar o Horto do Padre Cicero</p>
+                <h1 class="page-title">Ola! O projeto Cicero Experience busca entender o perfil dos visitantes do Horto do Padre Cicero.</h1>
+                <p class="hero-text">Seu registro ajuda a cuidar do Horto e melhorar a experiencia dos proximos visitantes.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-accent btn-lg cta-primary" href="#registro">Fazer meu registro agora</a>
+                    <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="checkin">
+                        <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
+                        <button type="submit" class="btn btn-outline-light btn-lg cta-secondary">Fazer check-in</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col-lg-6">
             <div class="hero-slider glass-card" data-slider="hero" tabindex="0" aria-label="Carrossel com destaques do horto">
@@ -55,7 +66,7 @@
     </div>
   </section>
 
-<section class="forms-section container">
+<section id="registro" class="forms-section container">
     {% if error_message %}
     <div class="alert alert-glass alert-danger" role="alert">
         {{ error_message }}

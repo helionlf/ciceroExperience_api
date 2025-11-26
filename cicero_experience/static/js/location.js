@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const stateSelect = document.getElementById("state");
   const citySelect = document.getElementById("city");
 
+  const BRAZIL_ISO = "BR";
+
   async function fetchWithCache(key, url) {
     const cached = localStorage.getItem(key);
     if (cached) {
@@ -10,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const response = await fetch(url);
-
     if (!response.ok) {
       throw new Error(`Erro ${response.status}: Falha ao carregar ${url}`);
     }
@@ -20,22 +21,39 @@ document.addEventListener("DOMContentLoaded", () => {
     return data;
   }
 
+  function resetSelect(selectEl, placeholder) {
+    selectEl.innerHTML = "";
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = placeholder;
+    selectEl.appendChild(option);
+  }
+
+  function fillSelect(selectEl, items, mapper) {
+    items.forEach(item => {
+      const mapped = mapper(item);
+      const option = document.createElement("option");
+      option.value = mapped.value;
+      option.textContent = mapped.label;
+      selectEl.appendChild(option);
+    });
+  }
+
   fetchWithCache("countries", "/static/data/countries.json")
     .then(countries => {
-      countries.forEach(country => {
-        const option = document.createElement("option");
-        option.value = country.iso2;
-        option.textContent = country.name;
-        countrySelect.appendChild(option);
-      });
+      resetSelect(countrySelect, "Selecione um pais");
+      fillSelect(countrySelect, countries, country => ({
+        value: country.iso2,
+        label: country.name
+      }));
     })
-    .catch(err => console.error("Erro ao carregar países:", err));
+    .catch(err => console.error("Erro ao carregar paises:", err));
 
   countrySelect.addEventListener("change", async () => {
     const countryCode = countrySelect.value;
 
-    stateSelect.innerHTML = '<option value="">Selecione um estado</option>';
-    citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+    resetSelect(stateSelect, "Selecione um estado");
+    resetSelect(citySelect, "Selecione uma cidade");
 
     if (!countryCode) return;
 
@@ -44,21 +62,19 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         states = await fetchWithCache(`states_${countryCode}`, `/static/data/states/${countryCode}.json`);
       } catch (e) {
-        console.warn(`[Estados] Arquivo ${countryCode}.json não encontrado para ${countryCode}.`);
+        console.warn(`[Estados] Arquivo ${countryCode}.json nao encontrado para ${countryCode}.`);
       }
 
       if (!states || states.length === 0) {
-        console.warn(`Nenhuma estado encontrado para este país.`);
+        console.warn("Nenhum estado encontrado para este pais.");
         citySelect.innerHTML = '<option value="">Nenhum estado encontrado</option>';
         return;
       }
 
-      states.forEach(state => {
-        const option = document.createElement("option");
-        option.value = state.iso2;
-        option.textContent = state.name;
-        stateSelect.appendChild(option);
-      });
+      fillSelect(stateSelect, states, state => ({
+        value: state.iso2,
+        label: state.name
+      }));
     } catch (err) {
       console.error("Erro ao carregar estados:", err);
     }
@@ -67,36 +83,31 @@ document.addEventListener("DOMContentLoaded", () => {
   stateSelect.addEventListener("change", async () => {
     const stateCode = stateSelect.value;
     const countryCode = countrySelect.value;
-    const BRAZIL_ISO = 'BR';
 
-    citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+    resetSelect(citySelect, "Selecione uma cidade");
     if (!stateCode || !countryCode) return;
 
     let citiesList = null;
 
     if (countryCode === BRAZIL_ISO) {
       try {
-        let rawData = await fetchWithCache(`cities_${stateCode}`, `/static/data/cities/${stateCode}.json`);
-
+        const rawData = await fetchWithCache(`cities_${stateCode}`, `/static/data/cities/${stateCode}.json`);
         const stateData = Array.isArray(rawData) ? rawData[0] : rawData;
-
         citiesList = stateData ? stateData.cities : null;
-
       } catch (e) {
-        console.warn(`[Cidades] Arquivo ${stateCode}.json não encontrado para ${countryCode}.`);
+        console.warn(`[Cidades] Arquivo ${stateCode}.json nao encontrado para ${countryCode}.`);
       }
     }
 
     if (!citiesList || citiesList.length === 0) {
-      console.warn(`Nenhuma cidade encontrada para este estado.`);
+      console.warn("Nenhuma cidade encontrada para este estado.");
       citySelect.innerHTML = '<option value="">Nenhuma cidade encontrada</option>';
       return;
     }
 
-    citiesList.forEach(city => {
-      const option = document.createElement("option");
-      option.textContent = city.name;
-      citySelect.appendChild(option);
-    });
+    fillSelect(citySelect, citiesList, city => ({
+      value: city.name,
+      label: city.name
+    }));
   });
 });
