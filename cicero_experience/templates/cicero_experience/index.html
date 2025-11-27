@@ -11,8 +11,7 @@
         <div class="col-lg-7">
           <h1 class="page-title">Check-in</h1>
           <p class="hero-text">
-            Bem-vindo à sua experiência exclusiva. Faça seu check-in com conforto, 
-            estilo e toda a atenção que você merece. O seu momento começa agora.
+            Sua presença é importante para nós. Faça seu check-in e junte-se à família de devotos do Padre Cícero.
           </p>
           <!-- CORREÇÃO: href apenas com o ID -->
           <a href="#forms-section" class="btn btn-outline-light btn-lg mt-3 btn-red">Fazer Check-in</a>
@@ -123,6 +122,13 @@
                 </div>
                 <h2 class="card-title">Site Oficial</h2>
                 <p class="card-text">Conheça mais sobre o Horto do Padre Cícero e toda sua história através do nosso site oficial.</p>
+                  <!-- IMAGEM DO SITE OFICIAL -->
+                <div class="website-preview">
+                    <img src="{% static 'imagens/logo.png' %}" alt="Preview do Site Oficial" loading="lazy">
+                    <div class="preview-overlay">
+                        <span class="preview-text">Visitar Site</span>
+                    </div>
+                </div>
                 <a href="https://hortodopadrecicero.net.br/" target="_blank" class="btn btn-accent btn-lg w-100 mt-auto">
                     Visitar Site Oficial
                 </a>
@@ -133,79 +139,70 @@
             </div>
         </article>
 
-<!-- Card Instagram -->
-<!-- Card Instagram SEM BOTÃO - Versão Simplificada -->
-<article class="glass-card instagram-card">
-    <div class="card-body">
-        <div class="instagram-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C21E2E" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-        </div>
-        <h2 class="card-title">Instagram</h2>
-        <p class="card-text">Acompanhe nossas novidades, eventos e momentos especiais através do Instagram.</p>
-        
-        <!-- CARROSSEL SIMPLIFICADO SEM BOTÃO -->
-        <div class="instagram-carousel">
-            <div class="carousel-container">
-                
-                <!-- SLIDE 1 - Preview com link -->
-                <div class="carousel-slide">
-                    <a href="https://www.instagram.com/p/DRiCYx4kai4/" target="_blank" class="instagram-preview">
-                        <div class="preview-image" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);">
-                            <span>📸</span>
-                        </div>
-                        <div class="preview-content">
-                            <h4>Post Recente</h4>
-                            <p>Clique para ver no Instagram</p>
-                            <small>@hortodopecicerooficial</small>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- SLIDE 2 -->
-                <div class="carousel-slide">
-                    <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
-                        <div class="preview-image" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);">
-                            <span>🌟</span>
-                        </div>
-                        <div class="preview-content">
-                            <h4>Eventos</h4>
-                            <p>Confira nossa programação</p>
-                            <small>@hortodopecicerooficial</small>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- SLIDE 3 -->
-                <div class="carousel-slide">
-                    <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
-                        <div class="preview-image" style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);">
-                            <span>🙏</span>
-                        </div>
-                        <div class="preview-content">
-                            <h4>Momentos</h4>
-                            <p>Compartilhando fé e esperança</p>
-                            <small>@hortodopecicerooficial</small>
-                        </div>
-                    </a>
-                </div>
-                
+    <!-- Card Instagram -->
+    <article class="glass-card instagram-card">
+        <div class="card-body">
+            <div class="instagram-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
             </div>
+            <h2 class="card-title">Instagram</h2>
+            <p class="card-text">Acompanhe nossas novidades, eventos e momentos especiais.</p>
             
-            <!-- Indicadores do carrossel -->
-            <div class="carousel-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+            <!-- CARROSSEL APENAS COM IMAGENS -->
+            <div class="instagram-carousel">
+                <div class="carousel-container">
+                    
+                    <!-- SLIDE 1 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/p/DRiCYx4kai4/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo1.jpg' %}" alt="Post 1" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-loji">📸</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- SLIDE 2 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo2.jpg' %}" alt="Post 2" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-logo">🌟</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- SLIDE 3 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo3.jpg' %}" alt="Post 3" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-logo">🙏</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+                
+                <!-- Indicadores do carrossel -->
+                <div class="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
             </div>
         </div>
-
-        <!-- SEM BOTÃO AQUI -->
-    </div>
-</article>
+    </article>
     </div>
 </section>
     </div>
