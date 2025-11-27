@@ -205,11 +205,26 @@ body::after {
   padding: 0.95rem 1.2rem;
   border-radius: 999px;
   border-width: 1px;
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #0b1021;
+  box-shadow: 0 18px 38px rgba(37, 99, 235, 0.35);
 }
 
 .cta-checkin-form {
   display: inline-flex;
   margin: 0;
+}
+
+.cta-secondary:hover {
+  background: #1e40af;
+  color: #0b1021;
+  transform: translateY(-2px);
+}
+
+.cta-secondary:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
 }
 
 .hero-slider {
