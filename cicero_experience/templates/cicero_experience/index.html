@@ -4,73 +4,29 @@
 {% block title %}Check-in | Cicero Experience{% endblock %}
 
 {% block content %}
-<section class="page-hero container">
-    <div class="row align-items-center gy-5">
-        <div class="col-lg-6">
-            <div class="hero-centered text-lg-start">
-                <p class="hero-subtitle">Ajude a preservar o Horto do Padre Cicero</p>
-                <h1 class="page-title">Ola! O projeto Cicero Experience busca entender o perfil dos visitantes do Horto do Padre Cicero.</h1>
-                <p class="hero-text">Seu registro ajuda a cuidar do Horto e melhorar a experiencia dos proximos visitantes.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-accent btn-lg cta-primary" href="#registro">Fazer meu registro agora</a>
-                    <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="checkin">
-                        <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
-                        <button type="submit" class="btn btn-lg cta-secondary">Fazer check-in</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="hero-slider glass-card" data-slider="hero" tabindex="0" aria-label="Carrossel com destaques do horto">
-                <div class="hero-slider__viewport">
-                    <div class="hero-slider__track">
-                        <div class="hero-slide" role="img" aria-label="Visitantes chegando ao horto" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Recepcao</span>
-                                <strong>Visitantes chegando ao horto</strong>
-                            </div>
-                        </div>
-                        <div class="hero-slide" role="img" aria-label="Equipe orientando os visitantes" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Orientacao</span>
-                                <strong>Equipe guiando os fluxos</strong>
-                            </div>
-                        </div>
-                        <div class="hero-slide" role="img" aria-label="Area principal do evento com movimento" style="--slide-image: url('{% static 'img/slider/foto-3.png' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Experiencia</span>
-                                <strong>Espacos pulsando com visitantes</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Foto anterior">
-                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima foto">
-                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <div class="hero-slider__dots">
-                    <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a foto 1" aria-pressed="true" data-slider-dot="0"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 2" aria-pressed="false" data-slider-dot="1"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 3" aria-pressed="false" data-slider-dot="2"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
 
-<section id="registro" class="forms-section container">
-    {% if error_message %}
-    <div class="alert alert-glass alert-danger" role="alert">
-        {{ error_message }}
+<section class="page-hero">
+    <div class="container">
+      <div class="row align-items-center gy-4" style="min-height: 100vh;">
+        <div class="col-lg-7">
+          <h1 class="page-title">Check-in</h1>
+          <p class="hero-text">
+            Sua presença é importante para nós. Faça seu check-in e junte-se à família de devotos do Padre Cícero.
+          </p>
+          <!-- CORREÇÃO: href apenas com o ID -->
+          <a href="#forms-section" class="btn btn-outline-light btn-lg mt-3 btn-red">Fazer Check-in</a>
+        </div>
     </div>
+</section>
+
+<!-- CORREÇÃO: Adicionado id="forms-section" -->
+<section id="forms-section" class="forms-section container">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
     {% endif %}
 
     <div class="forms-grid">
@@ -107,7 +63,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-md-6">
-                        <label for="grupo" class="form-label">Grupo</label>
+                        <label for="grupo" class="form-label">Você veio em grupo?</label>
                         <select name="grupo" id="grupo" class="form-select modern-control">
                             {% for value, label in grupo_ %}
                             <option value="{{ value }}">{{ label }}</option>
@@ -138,6 +94,99 @@
                 </form>
             </div>
         </article>
+                <!-- NOVO CARD: Site Oficial -->
+        <article class="glass-card website-card">
+            <div class="card-body">
+                <div class="website-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                    </svg>
+                </div>
+                <h2 class="card-title">Site Oficial</h2>
+                <p class="card-text">Conheça mais sobre o Horto do Padre Cícero e toda sua história através do nosso site oficial.</p>
+                  <!-- IMAGEM DO SITE OFICIAL -->
+                <div class="website-preview">
+                    <img src="{% static 'imagens/logo.png' %}" alt="Preview do Site Oficial" loading="lazy">
+                    <div class="preview-overlay">
+                        <span class="preview-text">Visitar Site</span>
+                    </div>
+                </div>
+                <a href="https://hortodopadrecicero.net.br/" target="_blank" class="btn btn-accent btn-lg w-100 mt-auto">
+                    Visitar Site Oficial
+                </a>
+                <div class="supporting-note">
+                    <span class="icon-dot"></span>
+                    <span class="supporting-note__text">Conheça nossa história e atividades</span>
+                </div>
+            </div>
+        </article>
+
+    <!-- Card Instagram -->
+    <article class="glass-card instagram-card">
+        <div class="card-body">
+            <div class="instagram-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+            </div>
+            <h2 class="card-title">Instagram</h2>
+            <p class="card-text">Acompanhe nossas novidades, eventos e momentos especiais.</p>
+            
+            <!-- CARROSSEL APENAS COM IMAGENS -->
+            <div class="instagram-carousel">
+                <div class="carousel-container">
+                    
+                    <!-- SLIDE 1 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/p/DRiCYx4kai4/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo1.jpg' %}" alt="Post 1" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-loji">📸</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- SLIDE 2 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo2.jpg' %}" alt="Post 2" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-logo">🌟</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- SLIDE 3 - Só imagem -->
+                    <div class="carousel-slide">
+                        <a href="https://www.instagram.com/hortodopecicerooficial/" target="_blank" class="instagram-preview">
+                            <div class="preview-image">
+                                <img src="{% static 'imagens/instagram/photo3.jpg' %}" alt="Post 3" loading="lazy">
+                                <div class="image-overlay">
+                                    <span class="instagram-logo">🙏</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+                
+                <!-- Indicadores do carrossel -->
+                <div class="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </article>
+    </div>
+</section>
     </div>
 </section>
 
@@ -160,131 +209,6 @@
     })();
 </script>
 
-<script>
-    (function () {
-        const slider = document.querySelector('[data-slider="hero"]');
-        if (!slider) {
-            return;
-        }
-
-        const track = slider.querySelector('.hero-slider__track');
-        const slides = Array.from(track.children);
-        if (!slides.length) {
-            return;
-        }
-
-        const prevTrigger = slider.querySelector('[data-slider-action="prev"]');
-        const nextTrigger = slider.querySelector('[data-slider-action="next"]');
-        const dots = Array.from(slider.querySelectorAll('[data-slider-dot]'));
-
-        let currentIndex = 0;
-        let autoplayId = null;
-        let startX = null;
-        let startY = null;
-        let activePointerId = null;
-
-        const goTo = (index) => {
-            currentIndex = (index + slides.length) % slides.length;
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-            dots.forEach((dot, dotIndex) => {
-                const isActive = dotIndex === currentIndex;
-                dot.classList.toggle('is-active', isActive);
-                dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-            });
-        };
-
-        const nextSlide = () => goTo(currentIndex + 1);
-        const prevSlide = () => goTo(currentIndex - 1);
-
-        const stopAutoplay = () => {
-            if (autoplayId) {
-                window.clearInterval(autoplayId);
-                autoplayId = null;
-            }
-        };
-
-        const restartAutoplay = () => {
-            stopAutoplay();
-            autoplayId = window.setInterval(nextSlide, 5000);
-        };
-
-        const handleSwipe = (deltaX, deltaY) => {
-            const distance = Math.max(Math.abs(deltaX), Math.abs(deltaY));
-            if (distance < 40) {
-                return;
-            }
-            if (Math.abs(deltaY) > Math.abs(deltaX)) {
-                deltaY < 0 ? nextSlide() : prevSlide();
-            } else {
-                deltaX < 0 ? nextSlide() : prevSlide();
-            }
-        };
-
-        prevTrigger?.addEventListener('click', () => {
-            prevSlide();
-            restartAutoplay();
-        });
-
-        nextTrigger?.addEventListener('click', () => {
-            nextSlide();
-            restartAutoplay();
-        });
-
-        slider.addEventListener('pointerdown', (event) => {
-            activePointerId = event.pointerId;
-            startX = event.clientX;
-            startY = event.clientY;
-            slider.setPointerCapture(activePointerId);
-            stopAutoplay();
-        });
-
-        slider.addEventListener('pointerup', (event) => {
-            if (activePointerId !== event.pointerId || startX === null || startY === null) {
-                return;
-            }
-            const deltaX = event.clientX - startX;
-            const deltaY = event.clientY - startY;
-            handleSwipe(deltaX, deltaY);
-            startX = null;
-            startY = null;
-            activePointerId = null;
-            restartAutoplay();
-        });
-
-        slider.addEventListener('pointercancel', () => {
-            startX = null;
-            startY = null;
-            activePointerId = null;
-            restartAutoplay();
-        });
-
-        slider.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-                event.preventDefault();
-                nextSlide();
-                restartAutoplay();
-            }
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-                event.preventDefault();
-                prevSlide();
-                restartAutoplay();
-            }
-        });
-
-        dots.forEach((dot, dotIndex) => {
-            dot.addEventListener('click', () => {
-                goTo(dotIndex);
-                restartAutoplay();
-            });
-        });
-
-        slider.addEventListener('pointerenter', stopAutoplay);
-        slider.addEventListener('pointerleave', restartAutoplay);
-
-        goTo(0);
-        restartAutoplay();
-    })();
-</script>
-
+<script src="{% static 'js/carousel.js' %}"></script>
 <script src="{% static 'js/location.js' %}" defer></script>
 {% endblock %}
