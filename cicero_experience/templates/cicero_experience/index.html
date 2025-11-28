@@ -30,6 +30,23 @@
     {% endif %}
 
     <div class="forms-grid">
+        <article class="glass-card action-card">
+            <div class="card-body">
+                <h2 class="card-title">Check-in instantaneo</h2>
+                <p class="card-text">Registre a presenca de visitantes recorrentes com um clique.</p>
+                <form action="{% url 'index' %}" method="post" class="d-grid gap-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="fingerprint" id="fingerprint-checkin">
+                    <input type="hidden" name="action" value="checkin">
+                    <button type="submit" class="btn btn-primary btn-lg">Fazer check-in</button>
+                </form>
+                <div class="supporting-note">
+                    <span class="icon-dot"></span>
+                    <span class="supporting-note__text">Compara o visitante pelo fingerprint gerado automaticamente.</span>
+                </div>
+            </div>
+        </article>
+        
         <article class="glass-card form-card">
             <div class="card-body">
                 <h2 class="card-title">Novo registro</h2>
