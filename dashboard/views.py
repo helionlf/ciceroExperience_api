@@ -170,11 +170,18 @@ def index(request):
 
     age_distribution = _build_age_distribution(filtered)
     total_age_responses = sum(item["total"] for item in age_distribution)
+    max_age_total = max((item["total"] for item in age_distribution), default=0)
     for item in age_distribution:
         if total_age_responses:
             item["percentage"] = round(item["total"] / total_age_responses * 100)
         else:
             item["percentage"] = 0
+
+        if max_age_total and item["total"] > 0:
+            scaled = int(item["total"] / max_age_total * 100)
+            item["bar_width"] = max(15, scaled)
+        else:
+            item["bar_width"] = 0
 
     trend_series = _build_trend_series(date_range, filtered)
     trend_peak = max((point["total"] for point in trend_series), default=0)

@@ -3,143 +3,199 @@
 
 {% block title %}Check-in | Cicero Experience{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/visitor.css' %}">
+{% endblock %}
+
 {% block content %}
-<section class="page-hero container">
-    <div class="row align-items-center gy-5">
-        <div class="col-lg-6">
-            <div class="hero-centered text-lg-start">
-                <p class="hero-subtitle">Ajude a preservar o Horto do Padre Cicero</p>
-                <h1 class="page-title">Ola! O projeto Cicero Experience busca entender o perfil dos visitantes do Horto do Padre Cicero.</h1>
-                <p class="hero-text">Seu registro ajuda a cuidar do Horto e melhorar a experiencia dos proximos visitantes.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-accent btn-lg cta-primary" href="#registro">Fazer meu registro agora</a>
-                    <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="checkin">
-                        <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
-                        <button type="submit" class="btn btn-lg cta-secondary">Fazer check-in</button>
-                    </form>
+<div class="visitor-page">
+    <section class="hero-band">
+        <div class="container hero-container">
+            <div class="hero-grid">
+                <div class="visitor-hero__content">
+                    <span class="hero-tag">Ajude a preservar o Horto do Padre Cicero</span>
+                    <h1 class="hero-title">Registre sua visita em poucos segundos</h1>
+                    <p class="hero-lead">SEU REGISTRO AJUDA A CUIDAR DO HORTO E MELHORAR A EXPERIENCIA DOS PROXIMOS VISITANTES.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-cta hero-cta" href="#registro">Fazer meu registro agora</a>
+                        <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="checkin">
+                            <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
+                            <button type="submit" class="btn btn-checkin">Fazer check-in</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="hero-slider glass-card" data-slider="hero" tabindex="0" aria-label="Carrossel com destaques do horto">
-                <div class="hero-slider__viewport">
-                    <div class="hero-slider__track">
-                        <div class="hero-slide" role="img" aria-label="Visitantes chegando ao horto" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Recepcao</span>
-                                <strong>Visitantes chegando ao horto</strong>
+                <div class="visitor-hero__media">
+                    <div class="hero-slider visitor-slider" data-slider="hero" tabindex="0" aria-label="Carrossel com destaques do horto">
+                        <div class="hero-slider__viewport">
+                            <div class="hero-slider__track">
+                                <div class="hero-slide" role="img" aria-label="Visitantes chegando ao horto" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
+                                    <div class="hero-slide__caption">
+                                        <span>Trilhas</span>
+                                        <strong>Caminhos cuidados para receber voce</strong>
+                                    </div>
+                                </div>
+                                <div class="hero-slide" role="img" aria-label="Equipe orientando os visitantes" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
+                                    <div class="hero-slide__caption">
+                                        <span>Recepcao</span>
+                                        <strong>Visitantes chegando ao horto</strong>
+                                    </div>
+                                </div>
+                                <div class="hero-slide" role="img" aria-label="Area principal do evento com movimento" style="--slide-image: url('{% static 'img/slider/foto-3.png' %}');">
+                                    <div class="hero-slide__caption">
+                                        <span>Experiencia</span>
+                                        <strong>Equipe guiando os fluxos</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="hero-slide" role="img" aria-label="Equipe orientando os visitantes" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Orientacao</span>
-                                <strong>Equipe guiando os fluxos</strong>
-                            </div>
-                        </div>
-                        <div class="hero-slide" role="img" aria-label="Area principal do evento com movimento" style="--slide-image: url('{% static 'img/slider/foto-3.png' %}');">
-                            <div class="hero-slide__caption">
-                                <span>Experiencia</span>
-                                <strong>Espacos pulsando com visitantes</strong>
-                            </div>
+                        <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Foto anterior">
+                            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima foto">
+                            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="hero-slider__dots">
+                            <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a foto 1" aria-pressed="true" data-slider-dot="0"></button>
+                            <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 2" aria-pressed="false" data-slider-dot="1"></button>
+                            <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 3" aria-pressed="false" data-slider-dot="2"></button>
                         </div>
                     </div>
                 </div>
-                <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Foto anterior">
-                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima foto">
-                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <div class="hero-slider__dots">
-                    <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a foto 1" aria-pressed="true" data-slider-dot="0"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 2" aria-pressed="false" data-slider-dot="1"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 3" aria-pressed="false" data-slider-dot="2"></button>
-                </div>
             </div>
         </div>
-    </div>
-  </section>
+    </section>
 
-<section id="registro" class="forms-section container">
-    {% if error_message %}
-    <div class="alert alert-glass alert-danger" role="alert">
-        {{ error_message }}
+    {% if messages %}
+    <div class="info-bar">
+        {% for message in messages %}
+            <span>{{ message }}</span>
+        {% endfor %}
     </div>
     {% endif %}
 
-    <div class="forms-grid">
-        <article class="glass-card form-card">
-            <div class="card-body">
-                <h2 class="card-title">Novo registro</h2>
-                <p class="card-text">Preencha os campos abaixo para enriquecer os dados do visitante.</p>
-                <form action="{% url 'index' %}" method="post" class="row g-4">
-                    {% csrf_token %}
-                    <div class="col-12 col-md-6">
-                        <label for="country" class="form-label">Pais</label>
-                        <select id="country" name="pais" class="form-select form-select-lg modern-control">
-                            <option value="">Selecione um pais</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="state" class="form-label">Estado</label>
-                        <select id="state" name="estado" class="form-select form-select-lg modern-control">
-                            <option value="">Selecione um estado</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label for="city" class="form-label">Cidade</label>
-                        <select id="city" name="cidade" class="form-select form-select-lg modern-control">
-                            <option value="">Selecione uma cidade</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="faixa_etaria" class="form-label">Faixa etaria</label>
-                        <select name="faixa_etaria" id="faixa_etaria" class="form-select modern-control">
-                            {% for value, label in faixas_etarias_choices %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="grupo" class="form-label">Grupo</label>
-                        <select name="grupo" id="grupo" class="form-select modern-control">
-                            {% for value, label in grupo_ %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="genero" class="form-label">Genero</label>
-                        <select name="genero" id="genero" class="form-select modern-control">
-                            {% for value, label in generos %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="cor_raca" class="form-label">Cor ou raca</label>
-                        <select name="cor_raca" id="cor_raca" class="form-select modern-control">
-                            {% for value, label in cor_racas %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <input type="hidden" name="action" value="form">
-                    <input type="hidden" name="fingerprint" id="fingerprint-form">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-accent btn-lg w-100">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </article>
+    {% if error_message %}
+    <div class="info-bar error">
+        <span>{{ error_message }}</span>
     </div>
-</section>
+    {% endif %}
+    {% if not messages and not error_message %}
+    <div class="info-bar neutral">
+        <span>Voce ja fez o check-in hoje.</span>
+    </div>
+    {% endif %}
+
+    <section id="registro" class="form-band">
+        <div class="container">
+            <div class="forms-grid two-cols">
+                <article class="visitor-card form-card">
+                    <div class="card-header">
+                        <span class="card-badge">Novo registro</span>
+                        <h2 class="card-title">Registre sua visita</h2>
+                        <p class="card-text">Preencha os campos abaixo para registrar sua visita. Leva menos de 1 minuto.</p>
+                    </div>
+                    <form action="{% url 'index' %}" method="post" class="visitor-form two-col">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label for="country" class="form-label">Pais</label>
+                            <select id="country" name="pais" class="form-select visitor-control">
+                                <option value="">Selecione um pais</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="state" class="form-label">Estado</label>
+                            <select id="state" name="estado" class="form-select visitor-control">
+                                <option value="">Selecione um estado</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="city" class="form-label">Cidade</label>
+                            <select id="city" name="cidade" class="form-select visitor-control">
+                                <option value="">Selecione uma cidade</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="faixa_etaria" class="form-label">Faixa etaria</label>
+                            <select name="faixa_etaria" id="faixa_etaria" class="form-select visitor-control">
+                                {% for value, label in faixas_etarias_choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="quantidade" class="form-label">Quantidade de pessoas</label>
+                            <select name="quantidade" id="quantidade" class="form-select visitor-control">
+                                <option value="">Selecione quantas pessoas estao com voce</option>
+                                <option value="1">1 pessoa</option>
+                                <option value="2">2 pessoas</option>
+                                <option value="3">3 pessoas</option>
+                                <option value="4">4 pessoas</option>
+                                <option value="5">5 pessoas</option>
+                                <option value="6">6 pessoas</option>
+                                <option value="7">7 pessoas</option>
+                                <option value="8">8 pessoas</option>
+                                <option value="9">9 pessoas</option>
+                                <option value="10">10 pessoas</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="genero" class="form-label">Genero</label>
+                            <select name="genero" id="genero" class="form-select visitor-control">
+                                {% for value, label in generos %}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="cor_raca" class="form-label">Cor ou raca</label>
+                            <select name="cor_raca" id="cor_raca" class="form-select visitor-control">
+                                {% for value, label in cor_racas %}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="grupo" class="form-label">Esta em grupo?</label>
+                            <select name="grupo" id="grupo" class="form-select visitor-control">
+                                {% for value, label in grupo_ %}
+                                <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <input type="hidden" name="action" value="form">
+                        <input type="hidden" name="fingerprint" id="fingerprint-form">
+                        <div class="field full-width">
+                            <button type="submit" class="btn btn-cta w-100">Enviar</button>
+                        </div>
+                    </form>
+                </article>
+
+                <article class="visitor-card checkin-card">
+                    <div class="card-header">
+                        <span class="card-badge badge-soft">Check-in instantaneo</span>
+                        <h3 class="card-title">Check-in instantaneo</h3>
+                        <p class="card-text">Registre a presenca de visitantes recorrentes com um clique.</p>
+                    </div>
+                    <form action="{% url 'index' %}" method="post" class="d-grid gap-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="fingerprint" id="fingerprint-checkin">
+                        <input type="hidden" name="action" value="checkin">
+                        <button type="submit" class="btn btn-checkin w-100">Fazer check-in</button>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <div class="brand-proof brand-proof--footer">
+        <img src="{% static 'img/slider/foto-5.png' %}" alt="SEMA | CE" class="brand-proof__img brand-proof__img--large">
+    </div>
+</div>
 
 <script>
     async function makeFingerprint() {
@@ -160,131 +216,6 @@
     })();
 </script>
 
-<script>
-    (function () {
-        const slider = document.querySelector('[data-slider="hero"]');
-        if (!slider) {
-            return;
-        }
-
-        const track = slider.querySelector('.hero-slider__track');
-        const slides = Array.from(track.children);
-        if (!slides.length) {
-            return;
-        }
-
-        const prevTrigger = slider.querySelector('[data-slider-action="prev"]');
-        const nextTrigger = slider.querySelector('[data-slider-action="next"]');
-        const dots = Array.from(slider.querySelectorAll('[data-slider-dot]'));
-
-        let currentIndex = 0;
-        let autoplayId = null;
-        let startX = null;
-        let startY = null;
-        let activePointerId = null;
-
-        const goTo = (index) => {
-            currentIndex = (index + slides.length) % slides.length;
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-            dots.forEach((dot, dotIndex) => {
-                const isActive = dotIndex === currentIndex;
-                dot.classList.toggle('is-active', isActive);
-                dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-            });
-        };
-
-        const nextSlide = () => goTo(currentIndex + 1);
-        const prevSlide = () => goTo(currentIndex - 1);
-
-        const stopAutoplay = () => {
-            if (autoplayId) {
-                window.clearInterval(autoplayId);
-                autoplayId = null;
-            }
-        };
-
-        const restartAutoplay = () => {
-            stopAutoplay();
-            autoplayId = window.setInterval(nextSlide, 5000);
-        };
-
-        const handleSwipe = (deltaX, deltaY) => {
-            const distance = Math.max(Math.abs(deltaX), Math.abs(deltaY));
-            if (distance < 40) {
-                return;
-            }
-            if (Math.abs(deltaY) > Math.abs(deltaX)) {
-                deltaY < 0 ? nextSlide() : prevSlide();
-            } else {
-                deltaX < 0 ? nextSlide() : prevSlide();
-            }
-        };
-
-        prevTrigger?.addEventListener('click', () => {
-            prevSlide();
-            restartAutoplay();
-        });
-
-        nextTrigger?.addEventListener('click', () => {
-            nextSlide();
-            restartAutoplay();
-        });
-
-        slider.addEventListener('pointerdown', (event) => {
-            activePointerId = event.pointerId;
-            startX = event.clientX;
-            startY = event.clientY;
-            slider.setPointerCapture(activePointerId);
-            stopAutoplay();
-        });
-
-        slider.addEventListener('pointerup', (event) => {
-            if (activePointerId !== event.pointerId || startX === null || startY === null) {
-                return;
-            }
-            const deltaX = event.clientX - startX;
-            const deltaY = event.clientY - startY;
-            handleSwipe(deltaX, deltaY);
-            startX = null;
-            startY = null;
-            activePointerId = null;
-            restartAutoplay();
-        });
-
-        slider.addEventListener('pointercancel', () => {
-            startX = null;
-            startY = null;
-            activePointerId = null;
-            restartAutoplay();
-        });
-
-        slider.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-                event.preventDefault();
-                nextSlide();
-                restartAutoplay();
-            }
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-                event.preventDefault();
-                prevSlide();
-                restartAutoplay();
-            }
-        });
-
-        dots.forEach((dot, dotIndex) => {
-            dot.addEventListener('click', () => {
-                goTo(dotIndex);
-                restartAutoplay();
-            });
-        });
-
-        slider.addEventListener('pointerenter', stopAutoplay);
-        slider.addEventListener('pointerleave', restartAutoplay);
-
-        goTo(0);
-        restartAutoplay();
-    })();
-</script>
-
+<script src="{% static 'js/carousel.js' %}"></script>
 <script src="{% static 'js/location.js' %}" defer></script>
 {% endblock %}

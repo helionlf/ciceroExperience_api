@@ -402,6 +402,7 @@
         grid-template-columns: auto 1fr;
         gap: clamp(0.75rem, 2vw, 1.5rem);
         align-items: stretch;
+        min-height: 320px;
     }
 
     .trend-chart__y {
@@ -426,7 +427,9 @@
     .trend-chart__plot {
         position: relative;
         overflow-x: auto;
-        padding: 0.5rem clamp(0.3rem, 1vw, 0.85rem) 2rem;
+        padding: 0.75rem clamp(0.4rem, 1vw, 1rem) 2.4rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.45));
+        border-radius: 16px;
     }
 
     .trend-chart__plot::before {
@@ -434,31 +437,38 @@
         position: absolute;
         left: clamp(0.3rem, 1vw, 0.85rem);
         right: clamp(0.3rem, 1vw, 0.85rem);
-        bottom: 2rem;
+        bottom: 2.1rem;
         height: 1px;
-        background: rgba(197, 22, 29, 0.15);
+        background: rgba(193, 18, 31, 0.2);
     }
 
     .trend-chart__plot::-webkit-scrollbar {
-        height: 6px;
+        height: 12px;
     }
 
     .trend-chart__plot::-webkit-scrollbar-thumb {
-        background: rgba(197, 22, 29, 0.2);
+        background: rgba(193, 18, 31, 0.35);
         border-radius: 999px;
+        border: 3px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .trend-chart__plot::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+        margin: 0 0.5rem;
     }
 
     .trend-chart__inner {
         display: inline-flex;
         align-items: flex-end;
-        gap: clamp(0.6rem, 1vw, 1rem);
-        min-height: 240px;
+        gap: clamp(0.4rem, 0.9vw, 0.75rem);
+        min-height: 320px;
         min-width: 100%;
     }
 
     .trend-column {
         position: relative;
-        flex: 0 0 clamp(42px, 6vw, 72px);
+        flex: 0 0 clamp(38px, 6vw, 64px);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -485,9 +495,10 @@
 
     .trend-bar {
         width: 100%;
-        min-height: 6px;
+        min-height: 26px;
         border-radius: 14px 14px 6px 6px;
-        background: linear-gradient(180deg, rgba(233, 14, 14, 0.85), rgba(233, 14, 14, 0.32));
+        background: linear-gradient(180deg, #ff4b4b 0%, #c1121f 100%);
+        box-shadow: 0 16px 36px rgba(193, 18, 31, 0.26);
         position: relative;
         transition: transform 150ms ease, box-shadow 150ms ease;
     }
@@ -640,18 +651,31 @@
 
     .age-row__bar {
         flex: 1;
-        height: 8px;
+        height: 18px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(197, 22, 29, 0.12);
         overflow: hidden;
         position: relative;
     }
 
     .age-row__fill {
         height: 100%;
-        background: linear-gradient(90deg, rgba(233, 14, 14, 0.9), rgba(248, 56, 56, 0.5));
+        background: linear-gradient(90deg, rgba(233, 14, 14, 0.9), rgba(248, 56, 56, 0.6));
         border-radius: inherit;
         transition: width 200ms ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 0.65rem;
+        justify-content: flex-start;
+        min-width: 0;
+    }
+
+    .age-row__fill-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     }
 
     .age-row__value {
@@ -817,7 +841,7 @@
                 <path d="M21 20v-.9c0-2.5-2-4.5-4.5-4.5h-2"></path>
             </svg>
         </div>
-        <p class="metric-card__title">Tipo de Visita</p>
+        <p class="metric-card__title">Visita em Grupo</p>
         <p class="metric-card__value">
             {% if top_group_data %}
                 {{ top_group_data.total }}
@@ -949,7 +973,7 @@
                             <span class="ranking-item__meta">
                                 {{ item.total }} visita{{ item.total|pluralize }}
                                 {% if item.estado %}
-                                    â€¢ {{ item.estado }}
+                                    &bull; {{ item.estado }}
                                 {% endif %}
                             </span>
                         </div>
@@ -980,7 +1004,7 @@
                     <div class="trend-chart__inner">
                         {% for point in trend_series %}
                         <div class="trend-column" tabindex="0" aria-label="{{ point.label }}: {{ point.total }} visita{{ point.total|pluralize }}">
-                            <div class="trend-bar" style="height: {{ point.height }}%;" data-total="{{ point.total }}" aria-hidden="true"></div>
+                            <div class="trend-bar" style="height: clamp(26px, {{ point.height }}%, 360px);" data-total="{{ point.total }}" aria-hidden="true"></div>
                             <span class="trend-label" aria-hidden="true">{{ point.label }}</span>
                         </div>
                         {% endfor %}
@@ -1009,7 +1033,11 @@
                     <li class="age-row">
                         <span class="age-row__label">{{ item.label }}</span>
                         <div class="age-row__bar">
-                            <div class="age-row__fill" style="width: {{ item.percentage }}%;"></div>
+                            <div class="age-row__fill" style="width: {{ item.bar_width }}%;" aria-hidden="true">
+                                {% if item.bar_width %}
+                                <span class="age-row__fill-label">{{ item.total }}</span>
+                                {% endif %}
+                            </div>
                         </div>
                         <span class="age-row__value">{{ item.total }}</span>
                     </li>

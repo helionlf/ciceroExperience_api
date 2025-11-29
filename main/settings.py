@@ -49,6 +49,20 @@ if RENDER_EXTERNAL_HOSTNAME:
 if DEBUG:
     ALLOWED_HOSTS.append('.onrender.com')  # Permite qualquer subdomínio do Render
 
+# Origens confiáveis para CSRF (necessário quando acessa via HTTPS/Render)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
+
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS.append("https://*.onrender.com")
+
 CSC_API_KEY = os.getenv("CSC_API_KEY") 
 
 # Quick-start development settings - unsuitable for production
