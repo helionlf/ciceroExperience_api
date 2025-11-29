@@ -3,143 +3,220 @@
 
 {% block title %}Check-in | Cicero Experience{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/visitor.css' %}">
+{% endblock %}
+
 {% block content %}
-<section class="page-hero container">
-    <div class="row align-items-center gy-5">
-        <div class="col-lg-6">
-            <div class="hero-centered text-lg-start">
-                <p class="hero-subtitle">Ajude a preservar o Horto do Padre Cicero</p>
-                <h1 class="page-title">Ola! O projeto Cicero Experience busca entender o perfil dos visitantes do Horto do Padre Cicero.</h1>
-                <p class="hero-text">Seu registro ajuda a cuidar do Horto e melhorar a experiencia dos proximos visitantes.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-accent btn-lg cta-primary" href="#registro">Fazer meu registro agora</a>
-                    <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="checkin">
-                        <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
-                        <button type="submit" class="btn btn-lg cta-secondary">Fazer check-in</button>
-                    </form>
-                </div>
+<div class="visitor-page">
+    <div class="hero-band">
+    <section class="visitor-hero container">
+        <div class="visitor-hero__content">
+            <span class="hero-tag">Ajude a preservar o Horto do Padre Cicero</span>
+            <h1 class="hero-title">Registre sua visita em poucos segundos</h1>
+            <p class="hero-subtitle">Seu registro ajuda a cuidar do Horto e melhorar a experiencia dos proximos visitantes.</p>
+            <div class="hero-actions">
+                <a class="btn btn-cta hero-cta" href="#registro">Fazer meu registro agora</a>
+                <form action="{% url 'index' %}" method="post" class="cta-checkin-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="checkin">
+                    <input type="hidden" name="fingerprint" id="fingerprint-hero-checkin">
+                    <button type="submit" class="btn btn-checkin">Fazer check-in</button>
+                </form>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="hero-slider glass-card" data-slider="hero" tabindex="0" aria-label="Carrossel com destaques do horto">
+        <div class="visitor-hero__media">
+            <div class="hero-slider visitor-slider" data-slider="hero" tabindex="0" aria-label="Carrossel com imagens do horto">
                 <div class="hero-slider__viewport">
                     <div class="hero-slider__track">
-                        <div class="hero-slide" role="img" aria-label="Visitantes chegando ao horto" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
+                        <div class="hero-slide" role="img" aria-label="Vista aerea do Horto do Padre Cicero" style="--slide-image: url('{% static 'img/slider/foto-1.jpg' %}');">
                             <div class="hero-slide__caption">
-                                <span>Recepcao</span>
-                                <strong>Visitantes chegando ao horto</strong>
+                                <span>Bem-vindo</span>
+                                <strong>Vista geral do horto ao amanhecer</strong>
                             </div>
                         </div>
-                        <div class="hero-slide" role="img" aria-label="Equipe orientando os visitantes" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
+                        <div class="hero-slide" role="img" aria-label="Visitantes caminhando no horto" style="--slide-image: url('{% static 'img/slider/foto-2.png' %}');">
                             <div class="hero-slide__caption">
-                                <span>Orientacao</span>
-                                <strong>Equipe guiando os fluxos</strong>
+                                <span>Trilhas</span>
+                                <strong>Caminhos cuidados para receber voce</strong>
                             </div>
                         </div>
-                        <div class="hero-slide" role="img" aria-label="Area principal do evento com movimento" style="--slide-image: url('{% static 'img/slider/foto-3.png' %}');">
+                        <div class="hero-slide" role="img" aria-label="Equipe orientando visitantes" style="--slide-image: url('{% static 'img/slider/foto-3.png' %}');">
                             <div class="hero-slide__caption">
                                 <span>Experiencia</span>
-                                <strong>Espacos pulsando com visitantes</strong>
+                                <strong>Equipe pronta para apoiar sua visita</strong>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Foto anterior">
+                <button class="hero-slider__control hero-slider__control--prev" type="button" data-slider-action="prev" aria-label="Imagem anterior">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </button>
-                <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima foto">
+                <button class="hero-slider__control hero-slider__control--next" type="button" data-slider-action="next" aria-label="Proxima imagem">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M8.5 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </button>
                 <div class="hero-slider__dots">
-                    <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a foto 1" aria-pressed="true" data-slider-dot="0"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 2" aria-pressed="false" data-slider-dot="1"></button>
-                    <button class="hero-slider__dot" type="button" aria-label="Ir para a foto 3" aria-pressed="false" data-slider-dot="2"></button>
+                    <button class="hero-slider__dot is-active" type="button" aria-label="Ir para a imagem 1" aria-pressed="true" data-slider-dot="0"></button>
+                    <button class="hero-slider__dot" type="button" aria-label="Ir para a imagem 2" aria-pressed="false" data-slider-dot="1"></button>
+                    <button class="hero-slider__dot" type="button" aria-label="Ir para a imagem 3" aria-pressed="false" data-slider-dot="2"></button>
                 </div>
             </div>
         </div>
+    </section>
     </div>
-  </section>
 
-<section id="registro" class="forms-section container">
-    {% if error_message %}
-    <div class="alert alert-glass alert-danger" role="alert">
-        {{ error_message }}
-    </div>
-    {% endif %}
+    <section id="registro" class="form-band">
+        <div class="container visitor-section">
+        {% if error_message %}
+        <div class="feedback-stack">
+            <div class="alert-message is-danger" role="alert">
+                <div class="alert-title">{{ error_message }}</div>
+            </div>
+        </div>
+        {% endif %}
 
-    <div class="forms-grid">
-        <article class="glass-card form-card">
-            <div class="card-body">
-                <h2 class="card-title">Novo registro</h2>
-                <p class="card-text">Preencha os campos abaixo para enriquecer os dados do visitante.</p>
-                <form action="{% url 'index' %}" method="post" class="row g-4">
+        {% if messages %}
+        <div class="feedback-stack">
+            {% for message in messages %}
+                {% if 'success' in message.tags %}
+                <div class="alert-message is-success" role="alert">
+                    <div class="alert-title">Obrigado por registrar sua visita! Seu apoio ajuda a preservar o Horto do Padre Cicero.</div>
+                    <div>{{ message }}</div>
+                    <div class="alert-actions">
+                        <a class="alert-link" href="#" target="_blank" rel="noopener noreferrer">Ver Instagram do Horto</a>
+                        <a class="alert-link secondary" href="#" target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert-message is-danger" role="alert">
+                    <div class="alert-title">{{ message }}</div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="cards-grid">
+            <article class="visitor-card form-card">
+                <div class="card-header">
+                    <span class="card-badge">Novo registro</span>
+                    <h2 class="card-title">Registre sua visita</h2>
+                    <p class="card-text">Preencha os campos abaixo para registrar sua visita. Leva menos de 1 minuto.</p>
+                </div>
+                <form action="{% url 'index' %}" method="post" class="visitor-form two-col">
                     {% csrf_token %}
-                    <div class="col-12 col-md-6">
+                    <div class="field">
                         <label for="country" class="form-label">Pais</label>
-                        <select id="country" name="pais" class="form-select form-select-lg modern-control">
+                        <select id="country" name="pais" class="form-select visitor-control">
                             <option value="">Selecione um pais</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="field">
                         <label for="state" class="form-label">Estado</label>
-                        <select id="state" name="estado" class="form-select form-select-lg modern-control">
+                        <select id="state" name="estado" class="form-select visitor-control">
                             <option value="">Selecione um estado</option>
                         </select>
                     </div>
-                    <div class="col-12">
+                    <div class="field">
                         <label for="city" class="form-label">Cidade</label>
-                        <select id="city" name="cidade" class="form-select form-select-lg modern-control">
+                        <select id="city" name="cidade" class="form-select visitor-control">
                             <option value="">Selecione uma cidade</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="field">
                         <label for="faixa_etaria" class="form-label">Faixa etaria</label>
-                        <select name="faixa_etaria" id="faixa_etaria" class="form-select modern-control">
+                        <select name="faixa_etaria" id="faixa_etaria" class="form-select visitor-control">
                             {% for value, label in faixas_etarias_choices %}
                             <option value="{{ value }}">{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="grupo" class="form-label">Grupo</label>
-                        <select name="grupo" id="grupo" class="form-select modern-control">
-                            {% for value, label in grupo_ %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
+                    <div class="field">
+                        <label for="quantidade" class="form-label">Quantidade de pessoas</label>
+                        <select name="quantidade" id="quantidade" class="form-select visitor-control">
+                            <option value="">Selecione quantas pessoas estao com voce</option>
+                            <option value="1">1 pessoa</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="3">3 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                            <option value="5">5 pessoas</option>
+                            <option value="6">6 pessoas</option>
+                            <option value="7">7 pessoas</option>
+                            <option value="8">8 pessoas</option>
+                            <option value="9">9 pessoas</option>
+                            <option value="10">10 pessoas</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="field">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero" id="genero" class="form-select modern-control">
+                        <select name="genero" id="genero" class="form-select visitor-control">
                             {% for value, label in generos %}
                             <option value="{{ value }}">{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="field">
                         <label for="cor_raca" class="form-label">Cor ou raca</label>
-                        <select name="cor_raca" id="cor_raca" class="form-select modern-control">
+                        <select name="cor_raca" id="cor_raca" class="form-select visitor-control">
                             {% for value, label in cor_racas %}
+                            <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="grupo" class="form-label">Esta em grupo?</label>
+                        <select name="grupo" id="grupo" class="form-select visitor-control">
+                            {% for value, label in grupo_ %}
                             <option value="{{ value }}">{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <input type="hidden" name="action" value="form">
                     <input type="hidden" name="fingerprint" id="fingerprint-form">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-accent btn-lg w-100">Enviar</button>
+                    <div class="field full-width">
+                        <button type="submit" class="btn btn-cta w-100">Enviar</button>
                     </div>
                 </form>
-            </div>
-        </article>
+            </article>
+
+            <article class="visitor-card checkin-card">
+                <div class="card-header">
+                    <span class="card-badge badge-soft">Check-in instantaneo</span>
+                    <h3 class="card-title">Check-in instantaneo</h3>
+                    <p class="card-text">Registre a presenca de visitantes recorrentes com um clique.</p>
+                </div>
+                <form action="{% url 'index' %}" method="post" class="d-grid gap-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="fingerprint" id="fingerprint-checkin">
+                    <input type="hidden" name="action" value="checkin">
+                    <button type="submit" class="btn btn-checkin w-100">Fazer check-in</button>
+                </form>
+            </article>
+        </div>
+        </div>
+    </section>
+
+    <div class="brand-proof brand-proof--footer" aria-label="Apoio institucional">
+        <img src="{% static 'img/slider/foto-5.png' %}" alt="SEMA | CE" class="brand-proof__img brand-proof__img--large">
     </div>
-</section>
+
+    <div class="floating-actions" aria-label="Links rapidos">
+        <a class="floating-btn instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram do Horto">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H7zm5 3.5A3.5 3.5 0 1 1 8.5 12 3.51 3.51 0 0 1 12 8.5zm0 2A1.5 1.5 0 1 0 13.5 12 1.5 1.5 0 0 0 12 10.5zm4.75-2.5a1 1 0 1 1-1-1 1 1 0 0 1 1 1z" />
+            </svg>
+        </a>
+        <a class="floating-btn maps" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir no Google Maps">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 2C8.13 2 5 5.06 5 8.93c0 4.67 5.4 10.3 6.51 11.43a1 1 0 0 0 1.42 0C13.6 19.23 19 13.6 19 8.93 19 5.06 15.87 2 12 2zm0 17.15c-1.68-1.81-5-6-5-10.22A5 5 0 0 1 12 4a5 5 0 0 1 5 4.93c0 4.19-3.33 8.41-5 10.22zM12 7a2 2 0 1 0 2 2 2 2 0 0 0-2-2z" />
+            </svg>
+        </a>
+    </div>
+</div>
 
 <script>
     async function makeFingerprint() {
