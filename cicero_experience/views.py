@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.db import DatabaseError
 from django.utils import timezone
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Visitantes
 from django.contrib import messages
 from django.conf import settings
 
 
+@ensure_csrf_cookie
 def index(request):
     faixas_etarias_choices = Visitantes.FAIXAS_ETARIAS
     grupo_ = Visitantes.OPCOES_GRUPO
