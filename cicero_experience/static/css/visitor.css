@@ -43,8 +43,8 @@ body::after {
 }
 
 .hero-band {
-  background: linear-gradient(180deg, #d45f5f 0%, #c14b4b 65%, #a33f3f 100%);
-  padding: 2.5rem 0 2.75rem;
+  background: linear-gradient(180deg, #cf5b5b 0%, #c14b4b 70%, #a33f3f 100%);
+  padding: 2.5rem 0 2.5rem;
   color: #fff;
   box-shadow: 0 24px 45px rgba(122, 31, 31, 0.35);
 }
@@ -60,6 +60,18 @@ body::after {
   gap: 1.5rem;
   align-items: center;
   padding: 0 1rem;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-grid {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
 }
 
 .visitor-hero__content {
@@ -86,6 +98,15 @@ body::after {
   font-weight: 800;
   color: #fff;
   line-height: 1.25;
+}
+
+.hero-lead {
+  margin: 0;
+  color: #ffecec;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
 }
 
 .hero-subtitle {
@@ -137,6 +158,7 @@ body::after {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  align-items: center;
 }
 
 .hero-actions .btn {
@@ -325,6 +347,31 @@ body::after {
   padding: 0 1rem;
 }
 
+.info-bar {
+  background: #ffffff;
+  color: #1f1f1f;
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  margin: 0 auto 1.5rem;
+  max-width: 1200px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.info-bar.error {
+  background: #ffecec;
+  border-color: #f6c6c6;
+  color: #7a1f1f;
+}
+
+.info-bar.neutral {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.05);
+  color: #1f1f1f;
+}
+
 .feedback-stack {
   display: grid;
   gap: 0.75rem;
@@ -380,7 +427,7 @@ body::after {
 
 .cards-grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .visitor-card {
@@ -551,6 +598,22 @@ select.visitor-control option {
 }
 
 .brand-proof {
+}
+
+.forms-grid.two-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.forms-grid.two-cols .checkin-card {
+  position: relative;
+  top: 0.35rem;
+}
+
+.hero-cta {
+  min-width: 220px;
 }
 
 @media (min-width: 768px) {
