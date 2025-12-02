@@ -306,6 +306,12 @@
     .metric-card--gender {
         --accent: var(--accent-rose);
         --accent-soft: rgba(251, 113, 133, 0.2);
+        --gender-male: #2563eb;
+        --gender-female: #f43f5e;
+        --gender-unknown: #9ca3af;
+        grid-column: span 2;
+        overflow: visible;
+        padding-bottom: 1.5rem;
     }
 
     .metric-card--race {
@@ -352,6 +358,115 @@
         border-radius: inherit;
     }
 
+    .gender-pie {
+        margin-top: 0.75rem;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 860px) {
+        .gender-pie {
+            grid-template-columns: auto 1fr;
+            align-items: center;
+        }
+    }
+
+    .gender-pie__chart {
+        --male: 0;
+        --female: 0;
+        --unknown: 0;
+        position: relative;
+        width: clamp(170px, 22vw, 220px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: conic-gradient(
+            var(--gender-male) 0% calc(var(--male) * 1%),
+            var(--gender-female) calc(var(--male) * 1%) calc((var(--male) + var(--female)) * 1%),
+            var(--gender-unknown) calc((var(--male) + var(--female)) * 1%) 100%
+        );
+        display: grid;
+        place-items: center;
+        box-shadow: 0 14px 34px rgba(193, 18, 31, 0.18);
+        margin: 0 auto;
+    }
+
+    .gender-pie__chart::after {
+        content: "";
+        position: absolute;
+        inset: 20%;
+        background: var(--surface);
+        border-radius: 50%;
+        box-shadow: inset 0 8px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .gender-pie__center {
+        position: absolute;
+        inset: 32%;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        gap: 0.2rem;
+        z-index: 1;
+    }
+
+    .gender-pie__number {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-strong);
+    }
+
+    .gender-pie__caption {
+        margin: 0;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    .gender-pie__legend {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .gender-pie__legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .gender-pie__swatch {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+    }
+
+    .gender-pie__swatch--masculino { background: var(--gender-male); }
+    .gender-pie__swatch--feminino { background: var(--gender-female); }
+    .gender-pie__swatch--nao_informado { background: var(--gender-unknown); }
+
+    .gender-pie__legend-label {
+        margin: 0;
+        font-weight: 600;
+        color: var(--text-strong);
+    }
+
+    .gender-pie__legend-value {
+        margin: 0.1rem 0 0;
+        color: var(--text-muted);
+        font-size: 0.86rem;
+        font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+        .metric-card--gender {
+            grid-column: auto;
+        }
+    }
+
     .ranking-list,
     .recent-list,
     .age-grid {
@@ -394,6 +509,8 @@
     .trend-card {
         display: flex;
         flex-direction: column;
+        grid-column: 1 / -1;
+        order: 5;
     }
 
     .trend-chart {
@@ -875,6 +992,38 @@
     </article>
 
     <!-- NOVO CARD: Gênero -->
+    <article class="dashboard-card">
+        <header>
+            <h2 class="metric-card__title" style="font-size:1rem;">Distribuição por Idade</h2>
+            <p class="metric-card__meta">
+                {% if total_age_responses %}
+                    {{ total_age_responses }} resposta{{ total_age_responses|pluralize }}
+                {% else %}
+                    Aguardando respostas
+                {% endif %}
+            </p>
+        </header>
+        {% if total_age_responses %}
+            <ul class="age-grid">
+                {% for item in age_distribution %}
+                    <li class="age-row">
+                        <span class="age-row__label">{{ item.label }}</span>
+                        <div class="age-row__bar">
+                            <div class="age-row__fill" style="width: {{ item.bar_width }}%;" aria-hidden="true">
+                                {% if item.bar_width %}
+                                <span class="age-row__fill-label">{{ item.total }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <span class="age-row__value">{{ item.total }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">Nenhuma faixa et�ria informada por enquanto.</p>
+        {% endif %}
+    </article>
+
     <article class="dashboard-card metric-card metric-card--gender">
         <div class="metric-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none">
@@ -899,20 +1048,31 @@
             {% endif %}
         </p>
         
-        {% if gender_distribution and total_visitors > 0 %}
-        <div class="distribution-mini">
-            {% for item in gender_distribution|slice:":3" %}
-            <div>
-                <div class="distribution-item">
-                    <span class="distribution-item__label">{{ item.label }}</span>
-                    <span class="distribution-item__value">{{ item.total }}</span>
-                </div>
-                <div class="distribution-bar">
-                    <div class="distribution-bar__fill" style="width: {% widthratio item.total total_visitors 100 %}%"></div>
+        {% if gender_pie_total %}
+        <div class="gender-pie" role="img" aria-label="Distribuicao de genero">
+            <div
+                class="gender-pie__chart"
+                style="--male: {{ gender_pie.0.percentage }}; --female: {{ gender_pie.1.percentage }}; --unknown: {{ gender_pie.2.percentage }};"
+            >
+                <div class="gender-pie__center">
+                    <p class="gender-pie__number">{{ gender_pie_total }}</p>
+                    <p class="gender-pie__caption">respostas</p>
                 </div>
             </div>
-            {% endfor %}
+            <ul class="gender-pie__legend">
+                {% for segment in gender_pie %}
+                <li class="gender-pie__legend-item">
+                    <span class="gender-pie__swatch gender-pie__swatch--{{ segment.key }}"></span>
+                    <div>
+                        <p class="gender-pie__legend-label">{{ segment.label }}</p>
+                        <p class="gender-pie__legend-value">{{ segment.total }} ({{ segment.percentage }}%)</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
+        {% else %}
+            <p class="empty-state">Nenhum genero informado.</p>
         {% endif %}
     </article>
 
@@ -1016,37 +1176,7 @@
         {% endif %}
     </article>
 
-    <article class="dashboard-card">
-        <header>
-            <h2 class="metric-card__title" style="font-size:1rem;">Distribuição por Idade</h2>
-            <p class="metric-card__meta">
-                {% if total_age_responses %}
-                    {{ total_age_responses }} resposta{{ total_age_responses|pluralize }}
-                {% else %}
-                    Aguardando respostas
-                {% endif %}
-            </p>
-        </header>
-        {% if total_age_responses %}
-            <ul class="age-grid">
-                {% for item in age_distribution %}
-                    <li class="age-row">
-                        <span class="age-row__label">{{ item.label }}</span>
-                        <div class="age-row__bar">
-                            <div class="age-row__fill" style="width: {{ item.bar_width }}%;" aria-hidden="true">
-                                {% if item.bar_width %}
-                                <span class="age-row__fill-label">{{ item.total }}</span>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <span class="age-row__value">{{ item.total }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p class="empty-state">Nenhuma faixa etária informada por enquanto.</p>
-        {% endif %}
-    </article>
+    
 </section>
 
 <script>

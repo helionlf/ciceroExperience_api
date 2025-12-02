@@ -155,6 +155,34 @@ def index(request):
     # Nova métrica: Distribuição de Gênero
     gender_distribution = _build_gender_distribution(filtered)
     top_gender_data = gender_distribution[0] if gender_distribution else None
+    gender_totals_map = {item["key"]: item["total"] for item in gender_distribution}
+    gender_pie = [
+        {
+            "key": "masculino",
+            "label": "Masculino",
+            "total": gender_totals_map.get("masculino", 0),
+        },
+        {
+            "key": "feminino",
+            "label": "Feminino",
+            "total": gender_totals_map.get("feminino", 0),
+        },
+        {
+            "key": "nao_informado",
+            "label": "Nao informados/Outros",
+            "total": sum(
+                total
+                for key, total in gender_totals_map.items()
+                if key not in ("masculino", "feminino")
+            ),
+        },
+    ]
+    gender_pie_total = sum(piece["total"] for piece in gender_pie)
+    for piece in gender_pie:
+        if gender_pie_total:
+            piece["percentage"] = round(piece["total"] / gender_pie_total * 100)
+        else:
+            piece["percentage"] = 0
 
     # Nova métrica: Distribuição de Cor/Raça
     race_distribution = _build_race_distribution(filtered)
@@ -240,6 +268,8 @@ def index(request):
         "top_race_data": top_race_data,
         "group_distribution": group_distribution,
         "gender_distribution": gender_distribution,
+        "gender_pie": gender_pie,
+        "gender_pie_total": gender_pie_total,
         "race_distribution": race_distribution,
         "city_rank": city_rank,
         "age_distribution": age_distribution,
